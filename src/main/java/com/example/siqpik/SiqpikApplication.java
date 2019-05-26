@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @SpringBootApplication
 public class SiqpikApplication {
 
-	@RequestMapping("/members")
-	@ResponseBody
-	String home() {
-		return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(SiqpikApplication.class, args);
 	}
