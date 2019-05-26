@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @SpringBootApplication
 public class SiqpikApplication {
 
-	@RequestMapping("/")
+	@RequestMapping("/members")
 	@ResponseBody
 	String home() {
 		return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
