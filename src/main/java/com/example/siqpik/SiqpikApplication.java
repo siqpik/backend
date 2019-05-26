@@ -13,7 +13,7 @@ public class SiqpikApplication {
 	@RequestMapping("/")
 	@ResponseBody
 	String home() {
-		return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIKPIK!!";
+		return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
 	}
 
 	public static void main(String[] args) {
