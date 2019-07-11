@@ -1,12 +1,12 @@
 package com.example.siqpik;
 
+import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
-import com.cloudinary.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -23,8 +23,11 @@ public class SiqpikController {
         return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
     }
 
-    @RequestMapping(value = "/image", method = RequestMethod.POST)
-    public Map<String, Object> signUpPlayer(@RequestParam("file") MultipartFile file) throws IOException {
-        return cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+    @PostMapping(value = "/image")
+    public Map uploadIMG(@RequestParam("file") MultipartFile file) throws IOException {
+        byte[] pic = file.getBytes();
+        Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
+        Photo photo = new Photo(pic, photoInfo);
+        return photoInfo;
     }
 }
