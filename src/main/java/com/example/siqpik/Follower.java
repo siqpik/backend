@@ -17,7 +17,7 @@ public class Follower {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private User follower;
+//    private User follower;
 
     /******************************************************
      *          Constructors
@@ -27,7 +27,7 @@ public class Follower {
 
     public Follower(User user, User follower) {
         this.user = user;
-        this.follower = follower;
+//        this.follower = follower;
     }
 
     /******************************************************
@@ -42,7 +42,7 @@ public class Follower {
         return user;
     }
 
-    public User getFollower() {
-        return follower;
-    }
+//    public User getFollower() {
+//        return follower;
+//    }
 }
