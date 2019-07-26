@@ -3,7 +3,7 @@ const sendPic = async () => {
     const myForm = new FormData();
     myForm.append("file", document.getElementById("file").files[0]);
         try {
-            const response = await fetch('http://localhost:8080/image', {
+            const response = await fetch('https://siqpik.herokuapp.com/image', {
                 method: 'POST',
                 body: myForm
             });
