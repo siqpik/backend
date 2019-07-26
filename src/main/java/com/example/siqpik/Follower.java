@@ -1,23 +1,28 @@
 package com.example.siqpik;
-
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "followers")
 public class Follower {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-//    private User follower;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "follower_id")
+    private User follower;
 
     /******************************************************
      *          Constructors
@@ -27,7 +32,7 @@ public class Follower {
 
     public Follower(User user, User follower) {
         this.user = user;
-//        this.follower = follower;
+        this.follower = follower;
     }
 
     /******************************************************
@@ -42,7 +47,7 @@ public class Follower {
         return user;
     }
 
-//    public User getFollower() {
-//        return follower;
-//    }
+    public User getFollower() {
+        return follower;
+    }
 }

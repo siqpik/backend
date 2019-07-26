@@ -1,21 +1,22 @@
 package com.example.siqpik;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
-
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
     private String userName;
@@ -28,6 +29,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Follower> followers = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    List<Tag> tags = new LinkedList<>();
 
     /******************************************************
      *          Constructors
@@ -78,23 +82,4 @@ public class User {
      *          Methods
      *****************************************************/
 
-    public void addFriend(Follower friend) {
-        followers.add(friend);
-    }
-
-    public void addPhoto(Photo photo) {
-        photos.add(photo);
-    }
-
-    public List<Photo> getMyPhotos(){
-        return photos.stream()
-                .filter(photo -> photo.getUser().id.equals(id))
-                .collect(toList());
-    }
-
-    public List<Photo> getOtherPhotos(){
-        return photos.stream()
-                .filter(photo -> !photo.getUser().id.equals(id))
-                .collect(toList());
-    }
 }

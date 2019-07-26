@@ -1,16 +1,16 @@
 package com.example.siqpik;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @Entity
+@Table(name = "photos")
 public class Photo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -21,6 +21,9 @@ public class Photo {
 
     @Transient
     private Map picInfo;
+
+    @OneToMany(mappedBy = "photo")
+    List<Tag> tags = new LinkedList<>();
 
     /******************************************************
      *          Constructors
