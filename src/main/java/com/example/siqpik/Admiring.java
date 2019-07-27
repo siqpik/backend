@@ -22,6 +22,10 @@ public class Admiring {
     @JoinColumn(name = "follower_id")
     private User admiring;
 
+    /******************************************************
+     *          Constructors
+     *****************************************************/
+
     public Admiring () {}
 
     public Admiring (User user, User admiring) {

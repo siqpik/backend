@@ -21,6 +21,10 @@ public class Tag {
     @JoinColumn(name = "photo_id")
     private Photo photo;
 
+    /******************************************************
+     *          Constructors
+     *****************************************************/
+
     public Tag() {}
 
     public Tag(User user, Photo photo) {
