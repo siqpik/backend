@@ -1,5 +1,7 @@
 package com.example.siqpik;
 
+import org.hibernate.type.descriptor.sql.LobTypeMappings;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -21,6 +23,7 @@ public class Photo {
     @OneToMany(mappedBy = "photo")
     List<Tag> tags = new LinkedList<>();
 
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] pic;
     private Integer bytes;
     private String created;
