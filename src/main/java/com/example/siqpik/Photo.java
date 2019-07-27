@@ -33,7 +33,7 @@ public class Photo {
     private String resourceType;
     private String secureUrl;
     private String signature;
-    private String[] tagsClouddinary;
+    private ArrayList tagsClouddinary;
     private String type;
     private String url;
     private Integer version;
@@ -61,7 +61,7 @@ public class Photo {
         this.secureUrl = (String) cloudinaryInfo.get("secure_url");
         this.signature = (String) cloudinaryInfo.get("signature");
         this.signature = (String) cloudinaryInfo.get("signature");
-        this.tagsClouddinary = (ArrayList) cloudinaryInfo.get("tags").;
+        this.tagsClouddinary = (ArrayList) cloudinaryInfo.get("tags");
         this.type = (String) cloudinaryInfo.get("type");
         this.url = (String) cloudinaryInfo.get("url");
         this.version = (Integer) cloudinaryInfo.get("version");
