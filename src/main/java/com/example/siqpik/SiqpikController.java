@@ -38,11 +38,16 @@ public class SiqpikController {
     @PostMapping(value = "/picture/{id}")
     public ResponseEntity uploadIMG(@RequestParam("file") MultipartFile file, @PathVariable Long id) throws IOException {
         Optional<User> user = userRepo.findById(id);
-        byte[] pic = file.getBytes();
-        Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
-        Photo photo = new Photo(user.get(), pic, photoInfo);
-        photoRepo.save(photo);
-        return ResponseEntity.ok().build();
+        if (user.isPresent()) {
+            byte[] pic = file.getBytes();
+            Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
+            Photo photo = new Photo(user.get(), pic, photoInfo);
+            photoRepo.save(photo);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @GetMapping(value = "/user/{id}")
