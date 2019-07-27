@@ -78,4 +78,8 @@ public class Photo {
     public User getUser() {
         return user;
     }
+
+    public String getUrl() {
+        return url;
+    }
 }

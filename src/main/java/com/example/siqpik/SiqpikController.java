@@ -2,9 +2,11 @@ package com.example.siqpik;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.siqpik.dto.UserDto;
 import com.example.siqpik.repositories.PhotoRepository;
 import com.example.siqpik.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,12 +36,19 @@ public class SiqpikController {
     }
 
     @PostMapping(value = "/picture/{id}")
-    public Map uploadIMG(@RequestParam("file") MultipartFile file, @PathVariable Long id) throws IOException {
+    public ResponseEntity uploadIMG(@RequestParam("file") MultipartFile file, @PathVariable Long id) throws IOException {
         Optional<User> user = userRepo.findById(id);
         byte[] pic = file.getBytes();
         Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
         Photo photo = new Photo(user.get(), pic, photoInfo);
         photoRepo.save(photo);
-        return photoInfo;
+        return ResponseEntity.ok().build();
     }
+
+    @GetMapping(value = "/user/{id}")
+    public UserDto userInfo(@PathVariable Long id) {
+        return userRepo.findById(id).map(UserDto::new).orElse(null);
+    }
+
+
 }
