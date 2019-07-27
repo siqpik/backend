@@ -37,7 +37,7 @@ public class User {
      *          Constructors
      *****************************************************/
 
-//    public User(){}
+    public User(){}
 
     public User(String userName, String name, String email, String password) {
         this.userName = userName;

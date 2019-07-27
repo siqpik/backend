@@ -2,15 +2,25 @@ package com.example.siqpik;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.siqpik.repositories.PhotoRepository;
+import com.example.siqpik.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 
 
 @RestController
 public class SiqpikController {
+
+    @Autowired
+    private UserRepository userRepo;
+
+    @Autowired
+    private PhotoRepository photoRepo;
 
     Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
             "cloud_name", "siqpik",
@@ -23,11 +33,13 @@ public class SiqpikController {
         return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
     }
 
-    @PostMapping(value = "/image")
-    public Map uploadIMG(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping(value = "/picture/{id}")
+    public Map uploadIMG(@RequestParam("file") MultipartFile file, @PathVariable Long id) throws IOException {
+        Optional<User> user = userRepo.findById(id);
         byte[] pic = file.getBytes();
         Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
-        Photo photo = new Photo(pic, photoInfo);
+        Photo photo = new Photo(user.get(), pic, photoInfo);
+        photoRepo.save(photo);
         return photoInfo;
     }
 }
