@@ -1,6 +1,5 @@
 package com.example.siqpik;
 
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -9,8 +8,8 @@ import javax.persistence.*;
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
