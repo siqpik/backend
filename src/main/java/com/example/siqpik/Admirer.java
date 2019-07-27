@@ -1,4 +1,6 @@
 package com.example.siqpik;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,11 +11,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "followers")
-public class Follower {
+@Table(name = "admirers")
+public class Admirer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -22,17 +25,17 @@ public class Follower {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "follower_id")
-    private User follower;
+    private User admirer;
 
     /******************************************************
      *          Constructors
      *****************************************************/
 
-    public Follower(){}
+    public Admirer(){}
 
-    public Follower(User user, User follower) {
+    public Admirer(User user, User admirer) {
         this.user = user;
-        this.follower = follower;
+        this.admirer = admirer;
     }
 
     /******************************************************
@@ -47,7 +50,7 @@ public class Follower {
         return user;
     }
 
-    public User getFollower() {
-        return follower;
+    public User getAdmirer() {
+        return admirer;
     }
 }

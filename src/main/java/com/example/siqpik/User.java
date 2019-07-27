@@ -1,5 +1,7 @@
 package com.example.siqpik;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +18,8 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     private Long id;
 
     private String userName;
@@ -28,7 +31,10 @@ public class User {
     private List<Photo> photos = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Follower> followers = new LinkedHashSet<>();
+    private Set<Admirer> admirers = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<Admiring> admirings = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     List<Tag> tags = new LinkedList<>();
@@ -54,28 +60,12 @@ public class User {
         return name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public Long getId() {
         return id;
     }
 
     public List<Photo> getPhotos() {
         return photos;
-    }
-
-    public Set<Follower> getFriends() {
-        return followers;
     }
 
 }

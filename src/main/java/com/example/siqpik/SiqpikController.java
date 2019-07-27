@@ -47,7 +47,9 @@ public class SiqpikController {
 
     @GetMapping(value = "/user/{id}")
     public UserDto userInfo(@PathVariable Long id) {
-        return userRepo.findById(id).map(UserDto::new).orElse(null);
+        return userRepo.findById(id)
+                .map(UserDto::new)
+                .orElse(null);
     }
 
 

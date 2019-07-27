@@ -5,8 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tags")
-public class Tag {
+@Table(name ="admirings")
+
+public class Admiring {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -18,13 +19,13 @@ public class Tag {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "photo_id")
-    private Photo photo;
+    @JoinColumn(name = "follower_id")
+    private User admiring;
 
-    public Tag() {}
+    public Admiring () {}
 
-    public Tag(User user, Photo photo) {
+    public Admiring (User user, User admiring) {
         this.user = user;
-        this.photo = photo;
+        this.admiring = admiring;
     }
 }

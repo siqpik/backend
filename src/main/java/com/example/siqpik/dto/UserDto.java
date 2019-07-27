@@ -3,7 +3,6 @@ package com.example.siqpik.dto;
 import com.example.siqpik.User;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -18,7 +17,8 @@ public class UserDto {
         name = user.getName();
         pics = user.getPhotos()
                 .stream()
-                .map(PhotoDto::new).collect(toList());
+                .map(PhotoDto::new)
+                .collect(toList());
     }
 
     public Long getId() {
