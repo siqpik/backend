@@ -1,6 +1,7 @@
 package com.example.siqpik;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class Photo {
         this.secureUrl = (String) cloudinaryInfo.get("secure_url");
         this.signature = (String) cloudinaryInfo.get("signature");
         this.signature = (String) cloudinaryInfo.get("signature");
-        this.tagsClouddinary = (String[]) cloudinaryInfo.get("tags");
+        this.tagsClouddinary = (ArrayList) cloudinaryInfo.get("tags").;
         this.type = (String) cloudinaryInfo.get("type");
         this.url = (String) cloudinaryInfo.get("url");
         this.version = (Integer) cloudinaryInfo.get("version");
