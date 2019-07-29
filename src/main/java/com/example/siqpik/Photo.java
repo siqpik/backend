@@ -1,5 +1,6 @@
 package com.example.siqpik;
 
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 @Entity
 @Table(name = "photos")
 public class Photo {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")

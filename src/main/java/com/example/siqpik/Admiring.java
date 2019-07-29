@@ -1,5 +1,6 @@
 package com.example.siqpik;
 
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
