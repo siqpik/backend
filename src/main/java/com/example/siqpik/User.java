@@ -1,7 +1,5 @@
 package com.example.siqpik;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -63,4 +61,7 @@ public class User {
         return photos;
     }
 
+    public String getPassword() {
+        return password;
+    }
 }
