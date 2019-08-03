@@ -49,8 +49,8 @@ public class User {
      *          Getters & Setters
      *****************************************************/
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
     public Long getId() {
@@ -63,5 +63,13 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public Set<Admirer> getAdmirers() {
+        return admirers;
+    }
+
+    public Set<Admiring> getAdmirings() {
+        return admirings;
     }
 }

@@ -1,17 +1,19 @@
 package com.example.siqpik.dto;
 
-import com.example.siqpik.Admirer;
 
-public class AdmirerDto {
+import com.example.siqpik.Admiring;
+
+public class AdmiringDto {
+
 
     private Long id;
     private Long userId;
     private String name;
 
-    public AdmirerDto(Admirer admirer) {
-        id = admirer.getId();
-        userId = admirer.getAdmirer().getId();
-        name = admirer.getAdmirer().getUserName();
+    public AdmiringDto(Admiring admiring) {
+        id = admiring.getId();
+        userId = admiring.getAdmiring().getId();
+        name = admiring.getAdmiring().getUserName();
     }
 
     public Long getId() {

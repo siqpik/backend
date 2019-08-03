@@ -1,33 +1,28 @@
 package com.example.siqpik;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
-import com.example.siqpik.dto.UserDto;
-import com.example.siqpik.repositories.PhotoRepository;
-import com.example.siqpik.repositories.UserRepository;
+import com.example.siqpik.dto.*;
+import com.example.siqpik.service.PhotoService;
+import com.example.siqpik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 
 @RestController
 public class SiqpikController {
 
     @Autowired
-    private UserRepository userRepo;
+    private UserService userService;
 
     @Autowired
-    private PhotoRepository photoRepo;
-
-    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "siqpik",
-            "api_key", "437532797296387",
-            "api_secret", "WLHW9vutYNCgmK4hFvPAzja2Sb0"));
+    private PhotoService photoService;
 
     @RequestMapping("/members")
     @ResponseBody
@@ -36,25 +31,73 @@ public class SiqpikController {
     }
 
     @PostMapping(value = "/picture/{id}")
-    public ResponseEntity uploadIMG(@RequestParam("file") MultipartFile file, @PathVariable Long id) throws IOException {
-        Optional<User> user = userRepo.findById(id);
-        if (user.isPresent()) {
-            byte[] pic = file.getBytes();
-            Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
-            Photo photo = new Photo(user.get(), pic, photoInfo);
-            photoRepo.save(photo);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
+    private ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, @PathVariable Long id, Authentication auth) {
+        return userService.getUser(auth)
+                .filter(user -> user.getId().equals(id))
+                .map(user -> {
+                    try {
+                        photoService.savePic(file, user);
+                        return ResponseEntity.status(201).build();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return ResponseEntity.status(415).build();
+                    }
+                })
+                .orElse(ResponseEntity.status(401).build());
     }
 
-    @GetMapping(value = "/user/{id}")
-    public UserDto userInfo(@PathVariable Long id) {
-        return userRepo.findById(id)
-                .map(UserDto::new)
-                .orElse(null);
+    @GetMapping(value = "/loggedUser")
+    private ResponseEntity getLoggedUser(Authentication auth){
+        System.out.println(auth);
+        return userService.getUser(auth)
+                .map(user -> new ResponseEntity<>(new LoggedUserDto(user), HttpStatus.OK))
+                .orElse(ResponseEntity.status(204).build());
+    }
+
+    @GetMapping(value = "/profile/{id}")
+    private ResponseEntity getProfile(@PathVariable Long id, Authentication auth) {
+        return userService.getUser(auth)
+                .map(user -> user.getId().equals(id)
+                                ? new ResponseEntity<>(new ProfileLoggedDto(user), HttpStatus.OK)
+                                : userService.getUserRepo()
+                                .findById(id)
+                                .map(user1 -> new ResponseEntity<>(
+                                        new ProfileDto(user1)
+                                        , HttpStatus.OK)
+                                )
+                                .orElse(ResponseEntity.status(404).build())
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
+
+    @GetMapping(value = "/admirers/{id}")
+    private ResponseEntity getAdmirers(@PathVariable Long id, Authentication aut) {
+        return userService.getUser(aut)
+                .map(user -> user.getId().equals(id)
+                        ? new ResponseEntity<>(
+                                user.getAdmirers()
+                                .stream()
+                                .map(AdmirerDto::new)
+                                .collect(toList())
+                                , HttpStatus.OK)
+                        : ResponseEntity.status(403).build()
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
+
+    @GetMapping(value = "/admiring/{id}")
+    private ResponseEntity getAdmirings(@PathVariable Long id, Authentication aut) {
+        return userService.getUser(aut)
+                .map(user -> user.getId().equals(id)
+                        ? new ResponseEntity<>(
+                        user.getAdmirings()
+                                .stream()
+                                .map(AdmiringDto::new)
+                                .collect(toList())
+                        , HttpStatus.OK)
+                        : ResponseEntity.status(403).build()
+                )
+                .orElse(ResponseEntity.status(401).build());
     }
 
 

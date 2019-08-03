@@ -32,4 +32,12 @@ public class Admiring {
         this.user = user;
         this.admiring = admiring;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public User getAdmiring() {
+        return admiring;
+    }
 }
