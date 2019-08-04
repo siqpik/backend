@@ -7,22 +7,16 @@ import static java.util.stream.Collectors.toList;
 
 public class ProfileDto {
 
-    private Long id;
     private String name;
     private List<PhotoDto> pics;
 
-    public ProfileDto(User user){
-        id = user.getId();
+    public ProfileDto(User user){ ;
         name = user.getUserName();
         pics = user.getPhotos()
                 .stream()
                 .map(PhotoDto::new)
                 .collect(toList());
 
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {

@@ -13,12 +13,16 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(unique = true)
     private Long id;
 
+    @Column(unique = true)
     private String userName;
+
     private String email;
     private String password;
     private String name;
+    private String profilePic;
 
     @OneToMany(mappedBy = "user")
     private List<Photo> photos = new LinkedList<>();
@@ -30,7 +34,12 @@ public class User {
     private Set<Admiring> admirings = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    List<Tag> tags = new LinkedList<>();
+    private List<Tag> tags = new LinkedList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Like> picsUserLikes = new LinkedList<>();
+
+
 
     /******************************************************
      *          Constructors
@@ -71,5 +80,9 @@ public class User {
 
     public Set<Admiring> getAdmirings() {
         return admirings;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 }

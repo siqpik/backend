@@ -1,7 +1,5 @@
 package com.example.siqpik;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,14 +14,21 @@ public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(unique = true)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "photo")
-    List<Tag> tags = new LinkedList<>();
+    @OneToMany(mappedBy = "pic")
+    private List<Tag> tags = new LinkedList<>();
+
+    @OneToMany(mappedBy = "pic")
+    private List<Like> likes = new LinkedList<>();
+
+    @OneToMany(mappedBy = "pic")
+    private List<Comment> comments = new LinkedList<>();
 
     @Column(columnDefinition = "LONGBLOB")
     private byte[] pic;
@@ -77,11 +82,28 @@ public class Photo {
      *          Getters & Setters
      *****************************************************/
 
+
+    public Long getId() {
+        return id;
+    }
+
     public User getUser() {
         return user;
     }
 
     public String getUrl() {
         return url;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }

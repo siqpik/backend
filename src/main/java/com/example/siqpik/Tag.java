@@ -1,5 +1,6 @@
 package com.example.siqpik;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ public class Tag {
 
     @Id@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(unique = true)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -24,7 +26,7 @@ public class Tag {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "photo_id")
-    private Photo photo;
+    private Photo pic;
 
     /******************************************************
      *          Constructors
@@ -32,8 +34,12 @@ public class Tag {
 
     public Tag() {}
 
-    public Tag(User user, Photo photo) {
+    public Tag(User user, Photo pic) {
         this.user = user;
-        this.photo = photo;
+        this.pic = pic;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

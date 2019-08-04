@@ -12,6 +12,7 @@ public class Admiring {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
+    @Column(unique = true)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -19,7 +20,7 @@ public class Admiring {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "follower_id")
+    @JoinColumn(name = "admiring_id")
     private User admiring;
 
     /******************************************************

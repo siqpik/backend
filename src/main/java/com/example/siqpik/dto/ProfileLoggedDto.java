@@ -8,34 +8,29 @@ import static java.util.stream.Collectors.toList;
 
 public class ProfileLoggedDto {
 
-    private Long id;
     private String name;
     private List<PhotoDto> pics;
     private Integer admirersNumber;
-    private Integer admiringsNumber;
+    private Integer admiringNumber;
 
 
     public ProfileLoggedDto(User user){
-        id = user.getId();
         name = user.getUserName();
         pics = user.getPhotos()
                 .stream()
                 .map(PhotoDto::new)
                 .collect(toList());
         admirersNumber = user.getAdmirers().size();
-        admiringsNumber = user.getAdmirings().size();
+        admiringNumber = user.getAdmirings().size();
     }
 
-    public Long getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
     }
 
-    public Integer getAdmiringsNumber() {
-        return admiringsNumber;
+    public Integer getAdmiringNumber() {
+        return admiringNumber;
     }
 
     public Integer getAdmirersNumber() {
