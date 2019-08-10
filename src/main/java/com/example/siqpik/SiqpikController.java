@@ -144,7 +144,4 @@ public class SiqpikController {
                 )
                 .orElse(ResponseEntity.status(401).build());
     }
-
-
-
 }
