@@ -1,4 +1,4 @@
-package com.example.siqpik;
+package com.example.siqpik.auth;
 
 public class AuthenticationBean {
 
