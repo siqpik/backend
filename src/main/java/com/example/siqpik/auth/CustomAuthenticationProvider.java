@@ -1,3 +1,5 @@
+package com.example.siqpik.auth;
+
 import com.example.siqpik.User;
 import com.example.siqpik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
