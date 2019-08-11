@@ -8,15 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
-
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -32,27 +25,27 @@ public class SiqpikApplication {
 									  AdmirerRepository admirerRepo,
 									  AdmiringRepository admiringRepo) {
 		return (args) -> {
-
-//			com.example.siqpik.User user1 = new com.example.siqpik.User("RDave", "Ronnie Dave", "dave@gnmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user2 = new com.example.siqpik.User("Yery", "Yeray Rodriguez", "yeray@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user3 = new com.example.siqpik.User("CaptainAmerica", "Pancho Viz", "p.viz@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user4 = new com.example.siqpik.User("Lau", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user5 = new com.example.siqpik.User("Jordan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user6 = new com.example.siqpik.User("Lebron", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user7 = new com.example.siqpik.User("Kobe", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user8 = new com.example.siqpik.User("Iverson", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user9 = new com.example.siqpik.User("Duncan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user10 = new com.example.siqpik.User("Messi", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user11 = new com.example.siqpik.User("Xavi", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user12 = new com.example.siqpik.User("OldDirtyBastard", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user13 = new com.example.siqpik.User("Pierce", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user14 = new com.example.siqpik.User("Durant", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user15 = new com.example.siqpik.User("Rakim", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user16 = new com.example.siqpik.User("Biggie", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user17 = new com.example.siqpik.User("Preemo", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user18 = new com.example.siqpik.User("JayZ", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user19 = new com.example.siqpik.User("BReal", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			com.example.siqpik.User user20 = new com.example.siqpik.User("MethodMan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//
+//			User user1 = new User("RDave", "Ronnie Dave", "dave@gnmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user2 = new User("Yery", "Yeray Rodriguez", "yeray@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user3 = new User("CaptainAmerica", "Pancho Viz", "p.viz@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user4 = new User("Lau", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user5 = new User("Jordan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user6 = new User("Lebron", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user7 = new User("Kobe", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user8 = new User("Iverson", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user9 = new User("Duncan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user10 = new User("Messi", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user11 = new User("Xavi", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user12 = new User("OldDirtyBastard", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user13 = new User("Pierce", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user14 = new User("Durant", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user15 = new User("Rakim", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user16 = new User("Biggie", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user17 = new User("Preemo", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user18 = new User("JayZ", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user19 = new User("BReal", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User user20 = new User("MethodMan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
 //
 //										//RDave admiring
 //			// Admiring Yeray
