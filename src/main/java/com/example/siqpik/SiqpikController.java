@@ -31,7 +31,7 @@ public class SiqpikController {
         return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
     }
 
-    @PostMapping(value = "/picture")
+    @PostMapping("/picture")
     private ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> {
@@ -46,7 +46,7 @@ public class SiqpikController {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @PostMapping(value = "/admire/{userName}")
+    @PostMapping("/admire/{userName}")
     private ResponseEntity admireUser(@PathVariable String userName, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> userService.getUserRepo()
@@ -60,7 +60,7 @@ public class SiqpikController {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @PostMapping(value = "/picture/{id}")
+    @PostMapping("/picture/{id}")
     private ResponseEntity likePic(@PathVariable Long id, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> photoService.getPhotoRepo()
@@ -74,7 +74,7 @@ public class SiqpikController {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @PostMapping(value = "/comment/{id]")
+    @PostMapping("/comment/{id]")
     private ResponseEntity putComment(@PathVariable Long id, @RequestBody String commentary, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> photoService.getPhotoRepo()
@@ -97,14 +97,14 @@ public class SiqpikController {
 
 
 
-    @GetMapping(value = "/userLogin")
+    @GetMapping("/userLogin")
     private ResponseEntity isUserLogin(Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> ResponseEntity.status(200).build())
                 .orElse(ResponseEntity.status(404).build());
     }
 
-    @GetMapping(value = "/profile/{userName}")
+    @GetMapping("/profile/{userName}")
     private ResponseEntity getProfile(@PathVariable String userName, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> user.getUserName().equals(userName)
@@ -119,7 +119,7 @@ public class SiqpikController {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @GetMapping(value = "/admirers")
+    @GetMapping("/admirers")
     private ResponseEntity getAdmirers(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(
@@ -127,12 +127,13 @@ public class SiqpikController {
                                 .stream()
                                 .map(AdmirerDto::new)
                                 .collect(toList())
-                                , HttpStatus.OK)
+                                , HttpStatus.OK
+                        )
                 )
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @GetMapping(value = "/admiring")
+    @GetMapping("/admiring")
     private ResponseEntity getAdmirings(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(
