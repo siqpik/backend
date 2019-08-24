@@ -9,6 +9,8 @@ public class ProfileDto {
 
     private String name;
     private List<PhotoDto> pics;
+    private Integer admirers;
+    private Integer admiring;
 
     public ProfileDto(User user){ ;
         name = user.getUserName();
@@ -16,6 +18,8 @@ public class ProfileDto {
                 .stream()
                 .map(PhotoDto::new)
                 .collect(toList());
+        admirers = user.getAdmirers().size();
+        admiring = user.getAdmirings().size();
 
     }
 
