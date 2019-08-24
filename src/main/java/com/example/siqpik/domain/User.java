@@ -85,4 +85,8 @@ public class User {
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
     }
+
+    public String getName() {
+        return name;
+    }
 }
