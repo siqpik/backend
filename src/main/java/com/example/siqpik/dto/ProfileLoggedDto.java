@@ -10,8 +10,9 @@ public class ProfileLoggedDto {
 
     private String name;
     private List<PhotoDto> pics;
-    private Integer admirersNumber;
-    private Integer admiringNumber;
+    private Integer admirers;
+    private Integer admiring;
+    private String profilePicUrl;
 
 
     public ProfileLoggedDto(User user){
@@ -20,8 +21,9 @@ public class ProfileLoggedDto {
                 .stream()
                 .map(PhotoDto::new)
                 .collect(toList());
-        admirersNumber = user.getAdmirers().size();
-        admiringNumber = user.getAdmirings().size();
+        admirers = user.getAdmirers().size();
+        admiring = user.getAdmirings().size();
+        profilePicUrl = user.getProfilePicUrl();
     }
 
 
@@ -29,15 +31,19 @@ public class ProfileLoggedDto {
         return name;
     }
 
-    public Integer getAdmiringNumber() {
-        return admiringNumber;
-    }
-
-    public Integer getAdmirersNumber() {
-        return admirersNumber;
-    }
-
     public List<PhotoDto> getPics() {
         return pics;
+    }
+
+    public Integer getAdmirers() {
+        return admirers;
+    }
+
+    public Integer getAdmiring() {
+        return admiring;
+    }
+
+    public String getProfilePicUrl() {
+        return profilePicUrl;
     }
 }
