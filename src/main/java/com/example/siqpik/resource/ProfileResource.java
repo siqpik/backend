@@ -1,6 +1,6 @@
-package com.example.siqpik.controller;
+package com.example.siqpik.resource;
 
-import com.example.siqpik.controller.model.ProfileResult;
+import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.dto.ProfileDto;
 import com.example.siqpik.dto.ProfileLoggedDto;
 import com.example.siqpik.service.UserService;

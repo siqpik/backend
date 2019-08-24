@@ -1,6 +1,4 @@
-package com.example.siqpik;
-
-import org.hibernate.annotations.GenericGenerator;
+package com.example.siqpik.domain;
 
 import javax.persistence.*;
 

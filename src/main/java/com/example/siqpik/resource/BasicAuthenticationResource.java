@@ -1,11 +1,11 @@
-package com.example.siqpik;
+package com.example.siqpik.resource;
 
 import com.example.siqpik.auth.AuthenticationBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BasicAuthenticationController {
+public class BasicAuthenticationResource {
 
     @GetMapping("/basicauth")
     public AuthenticationBean authenticate() {

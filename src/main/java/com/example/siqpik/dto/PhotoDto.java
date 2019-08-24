@@ -1,6 +1,6 @@
 package com.example.siqpik.dto;
 
-import com.example.siqpik.Photo;
+import com.example.siqpik.domain.Photo;
 
 import java.util.List;
 import static java.util.stream.Collectors.toList;

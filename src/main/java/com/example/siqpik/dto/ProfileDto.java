@@ -1,5 +1,5 @@
 package com.example.siqpik.dto;
-import com.example.siqpik.User;
+import com.example.siqpik.domain.User;
 
 import java.util.List;
 

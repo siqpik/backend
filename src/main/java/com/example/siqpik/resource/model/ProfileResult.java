@@ -1,4 +1,4 @@
-package com.example.siqpik.controller.model;
+package com.example.siqpik.resource.model;
 
 public class ProfileResult {
 

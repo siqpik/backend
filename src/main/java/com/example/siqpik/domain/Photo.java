@@ -1,7 +1,6 @@
-package com.example.siqpik;
+package com.example.siqpik.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;

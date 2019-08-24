@@ -1,9 +1,9 @@
 package com.example.siqpik.service;
 
-import com.example.siqpik.Admirer;
-import com.example.siqpik.Admiring;
-import com.example.siqpik.User;
-import com.example.siqpik.controller.model.ProfileResult;
+import com.example.siqpik.domain.Admirer;
+import com.example.siqpik.domain.Admiring;
+import com.example.siqpik.domain.User;
+import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.repositories.AdmirerRepository;
 import com.example.siqpik.repositories.AdmiringRepository;
 import com.example.siqpik.repositories.UserRepository;

@@ -1,4 +1,4 @@
-package com.example.siqpik;
+package com.example.siqpik.resource;
 
 import com.example.siqpik.dto.*;
 import com.example.siqpik.service.PhotoService;
@@ -17,7 +17,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api")
-public class SiqpikController {
+public class SiqpikResource {
 
     @Autowired
     private UserService userService;

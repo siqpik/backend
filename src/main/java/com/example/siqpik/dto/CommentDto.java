@@ -1,6 +1,6 @@
 package com.example.siqpik.dto;
 
-import com.example.siqpik.Comment;
+import com.example.siqpik.domain.Comment;
 
 public class CommentDto {
 

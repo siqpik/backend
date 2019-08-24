@@ -1,4 +1,4 @@
-package com.example.siqpik;
+package com.example.siqpik.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
