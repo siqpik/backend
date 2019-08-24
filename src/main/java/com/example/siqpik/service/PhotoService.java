@@ -38,9 +38,8 @@ public class PhotoService {
     }
 
     public void savePic(MultipartFile file, User user) throws IOException {
-        byte[] pic = file.getBytes();
-        Map photoInfo = cloudinary.uploader().upload(pic, ObjectUtils.emptyMap());
-        photoRepo.save(new Photo(user, pic, photoInfo));
+        Map photoInfo = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
+        photoRepo.save(new Photo(user, photoInfo));
     }
 
     public void createLike(User user, Photo pic) {

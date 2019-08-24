@@ -30,25 +30,8 @@ public class Photo {
     @OneToMany(mappedBy = "pic")
     private List<Comment> comments = new LinkedList<>();
 
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] pic;
-    private Integer bytes;
-    private String created;
-    private String etag;
-    private String format;
-    private Integer height;
-    private String originalFileName;
-    private Boolean placeholder;
-    private String publicID;
-    private String resourceType;
-    private String secureUrl;
-    private String signature;
-    private ArrayList tagsClouddinary;
-    private String type;
+    @Column
     private String url;
-    private Integer version;
-    private Integer width;
-
 
     /******************************************************
      *          Constructors
@@ -56,26 +39,9 @@ public class Photo {
 
     public Photo(){}
 
-    public Photo(User user, byte[] pic, Map cloudinaryInfo) {
+    public Photo(User user, Map cloudinaryInfo) {
         this.user = user;
-        this.pic = pic;
-        this.bytes = (Integer) cloudinaryInfo.get("bytes");
-        this.created = (String) cloudinaryInfo.get("created_at");
-        this.etag = (String) cloudinaryInfo.get("etag");
-        this.format = (String) cloudinaryInfo.get("format");
-        this.height = (Integer) cloudinaryInfo.get("height");
-        this.originalFileName = (String) cloudinaryInfo.get("original_filename");
-        this.placeholder = (Boolean) cloudinaryInfo.get("placeholder");
-        this.publicID = (String) cloudinaryInfo.get("public_id");
-        this.resourceType = (String) cloudinaryInfo.get("resource_type");
-        this.secureUrl = (String) cloudinaryInfo.get("secure_url");
-        this.signature = (String) cloudinaryInfo.get("signature");
-        this.signature = (String) cloudinaryInfo.get("signature");
-        this.tagsClouddinary = (ArrayList) cloudinaryInfo.get("tags");
-        this.type = (String) cloudinaryInfo.get("type");
         this.url = (String) cloudinaryInfo.get("url");
-        this.version = (Integer) cloudinaryInfo.get("version");
-        this.width = (Integer) cloudinaryInfo.get("width");
     }
 
     /******************************************************

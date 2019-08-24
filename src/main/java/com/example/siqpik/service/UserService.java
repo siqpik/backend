@@ -17,7 +17,7 @@ public class UserService {
     private final UserRepository userRepo;
     private final AdmiringRepository admiringRepo;
     private  final AdmirerRepository admirerRepo;
-    {}
+
     public UserService(UserRepository userRepo, AdmiringRepository admiringRepo, AdmirerRepository admirerRepo) {
         this.userRepo = userRepo;
         this.admiringRepo = admiringRepo;

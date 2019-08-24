@@ -15,7 +15,6 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-
 @RestController
 public class SiqpikController {
 
@@ -25,14 +24,8 @@ public class SiqpikController {
     @Autowired
     private PhotoService photoService;
 
-    @RequestMapping("/members")
-    @ResponseBody
-    String home() {
-        return "Hello we are Ronn, Pancho, Laura and Yeray. AND WE ARE SIQPIK!!";
-    }
-
     @PostMapping("/picture")
-    private ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, Authentication auth) {
+    public ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> {
                     try {
@@ -88,14 +81,6 @@ public class SiqpikController {
 
                 ).orElse(ResponseEntity.status(401).build());
     }
-
-//    @PostMapping(value = "/tag/{id}")
-//    private ResponseEntity tagUsersOnPic(@PathVariable Long id, @RequestBody List<String> userNames, Authentication auth) {
-//        userNames.stream()
-//                .filter(names ->)
-//    }
-
-
 
     @GetMapping("/userLogin")
     private ResponseEntity isUserLogin(Authentication auth) {
