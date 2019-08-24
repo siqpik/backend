@@ -11,7 +11,7 @@ public class ProfileDto {
     private List<PhotoDto> pics;
     private Integer admirers;
     private Integer admiring;
-    private String profilePic;
+    private String profilePicUrl;
 
     public ProfileDto(User user) {
         name = user.getUserName();
@@ -21,7 +21,7 @@ public class ProfileDto {
                 .collect(toList());
         admirers = user.getAdmirers().size();
         admiring = user.getAdmirings().size();
-        profilePic = null;
+        profilePicUrl = user.getProfilePicUrl();
     }
 
     public String getName() {
@@ -40,7 +40,7 @@ public class ProfileDto {
         return admiring;
     }
 
-    public String getProfilePic() {
-        return profilePic;
+    public String getProfilePicUrl() {
+        return profilePicUrl;
     }
 }

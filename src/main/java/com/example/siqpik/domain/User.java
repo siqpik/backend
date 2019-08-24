@@ -22,7 +22,7 @@ public class User {
     private String email;
     private String password;
     private String name;
-    private String profilePic;
+    private String profilePicUrl = "https://static.hiphopdx.com/2017/11/B-Real-827x620.jpg";
 
     @OneToMany(mappedBy = "user")
     private List<Photo> photos = new LinkedList<>();
@@ -82,8 +82,12 @@ public class User {
         return admirings;
     }
 
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
+    public String getProfilePicUrl() {
+        return profilePicUrl;
+    }
+
+    public void setProfilePicUrl(String profilePicUrl) {
+        this.profilePicUrl = profilePicUrl;
     }
 
     public String getName() {
