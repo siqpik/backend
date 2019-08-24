@@ -2,10 +2,10 @@ package com.example.siqpik.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.siqpik.Comment;
-import com.example.siqpik.Like;
-import com.example.siqpik.Photo;
-import com.example.siqpik.User;
+import com.example.siqpik.domain.Comment;
+import com.example.siqpik.domain.Like;
+import com.example.siqpik.domain.Photo;
+import com.example.siqpik.domain.User;
 import com.example.siqpik.repositories.CommentRepository;
 import com.example.siqpik.repositories.LikeRepository;
 import com.example.siqpik.repositories.PhotoRepository;

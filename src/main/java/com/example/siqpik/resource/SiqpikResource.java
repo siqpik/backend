@@ -1,4 +1,4 @@
-package com.example.siqpik;
+package com.example.siqpik.resource;
 
 import com.example.siqpik.dto.*;
 import com.example.siqpik.service.PhotoService;
@@ -16,7 +16,8 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-public class SiqpikController {
+@RequestMapping("/api")
+public class SiqpikResource {
 
     @Autowired
     private UserService userService;
@@ -87,21 +88,6 @@ public class SiqpikController {
         return userService.getUser(auth)
                 .map(user -> ResponseEntity.status(200).build())
                 .orElse(ResponseEntity.status(404).build());
-    }
-
-    @GetMapping("/profile/{userName}")
-    private ResponseEntity getProfile(@PathVariable String userName, Authentication auth) {
-        return userService.getUser(auth)
-                .map(user -> user.getUserName().equals(userName)
-                        ? new ResponseEntity<>(new ProfileLoggedDto(user), HttpStatus.OK)
-                        : userService.getUserRepo().findByUserName(userName)
-                        .map(user1 -> new ResponseEntity<>(
-                                new ProfileDto(user1),
-                                HttpStatus.OK)
-                        )
-                        .orElse(ResponseEntity.status(404).build())
-                )
-                .orElse(ResponseEntity.status(401).build());
     }
 
     @GetMapping("/admirers")

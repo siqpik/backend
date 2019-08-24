@@ -1,13 +1,10 @@
-package com.example.siqpik;
-
-import org.hibernate.annotations.GenericGenerator;
+package com.example.siqpik.domain;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name ="admirings")
-
-public class Admiring {
+@Table(name = "admirers")
+public class Admirer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
@@ -20,25 +17,33 @@ public class Admiring {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "admiring_id")
-    private User admiring;
+    @JoinColumn(name = "admirer_id")
+    private User admirer;
 
     /******************************************************
      *          Constructors
      *****************************************************/
 
-    public Admiring () {}
+    public Admirer(){}
 
-    public Admiring (User user, User admiring) {
+    public Admirer(User user, User admirer) {
         this.user = user;
-        this.admiring = admiring;
+        this.admirer = admirer;
     }
+
+    /******************************************************
+     *          Getters & Setters
+     *****************************************************/
 
     public Long getId() {
         return id;
     }
 
-    public User getAdmiring() {
-        return admiring;
+    public User getUser() {
+        return user;
+    }
+
+    public User getAdmirer() {
+        return admirer;
     }
 }

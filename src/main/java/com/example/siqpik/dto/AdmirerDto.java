@@ -1,6 +1,6 @@
 package com.example.siqpik.dto;
 
-import com.example.siqpik.Admirer;
+import com.example.siqpik.domain.Admirer;
 
 public class AdmirerDto {
 

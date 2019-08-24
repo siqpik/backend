@@ -1,4 +1,4 @@
-package com.example.siqpik;
+package com.example.siqpik.domain;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -84,5 +84,9 @@ public class User {
 
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public String getName() {
+        return name;
     }
 }
