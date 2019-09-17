@@ -141,6 +141,8 @@ public class SiqpikApplication {
 //			admirerRepo.save(admirer10);
 //			admirerRepo.save(admirer11);
 //			admirerRepo.save(admirer12);
+			
+			//////Test for CI/CD
 
 		};
 	}
