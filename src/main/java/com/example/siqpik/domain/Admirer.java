@@ -1,16 +1,20 @@
 package com.example.siqpik.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "admirers")
 public class Admirer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, updatable = false, nullable = false)
     private Long id;
+
+    @Column
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -29,6 +33,7 @@ public class Admirer {
     public Admirer(User user, User admirer) {
         this.user = user;
         this.admirer = admirer;
+        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     /******************************************************

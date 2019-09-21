@@ -1,7 +1,9 @@
 package com.example.siqpik.dto;
 
+import com.example.siqpik.domain.Photo;
 import com.example.siqpik.domain.User;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -19,6 +21,7 @@ public class ProfileLoggedDto {
         name = user.getUserName();
         pics = user.getPhotos()
                 .stream()
+                .sorted(Comparator.comparingLong(Photo::getId).reversed())
                 .map(PhotoDto::new)
                 .collect(toList());
         admirers = user.getAdmirers().size();

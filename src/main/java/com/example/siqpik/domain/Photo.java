@@ -1,6 +1,8 @@
 package com.example.siqpik.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +13,8 @@ public class Photo {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,15 +33,20 @@ public class Photo {
     @Column
     private String url;
 
+    @Column(name = "date")
+    private LocalDateTime date;
+
     /******************************************************
      *          Constructors
      *****************************************************/
 
-    public Photo(){}
+    public Photo() {
+    }
 
     public Photo(User user, Map cloudinaryInfo) {
         this.user = user;
         this.url = (String) cloudinaryInfo.get("url");
+        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     /******************************************************
@@ -71,4 +77,9 @@ public class Photo {
     public List<Comment> getComments() {
         return comments;
     }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
 }

@@ -1,30 +1,42 @@
 package com.example.siqpik.domain;
 
+import org.springframework.core.annotation.Order;
+
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
     @Column(unique = true)
     private String userName;
 
+    @Column(unique = true)
     private String email;
+
+    @Column
     private String password;
+
+    @Column
     private String name;
+
+    @Column
     private String profilePicUrl = "https://static.hiphopdx.com/2017/11/B-Real-827x620.jpg";
 
+    @Column
+    private LocalDateTime date;
+
     @OneToMany(mappedBy = "user")
+    @OrderBy("date DESC")
     private List<Photo> photos = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
@@ -40,7 +52,6 @@ public class User {
     private List<Like> picsUserLikes = new LinkedList<>();
 
 
-
     /******************************************************
      *          Constructors
      *****************************************************/
@@ -52,6 +63,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     /******************************************************
@@ -92,5 +104,9 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
     }
 }
