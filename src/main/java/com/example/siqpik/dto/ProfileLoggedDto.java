@@ -21,7 +21,8 @@ public class ProfileLoggedDto {
         name = user.getUserName();
         pics = user.getPhotos()
                 .stream()
-                .sorted(Comparator.comparingLong(Photo::getId).reversed())
+                .sorted(Comparator.comparing(Photo::getDate)
+                        .reversed())
                 .map(PhotoDto::new)
                 .collect(toList());
         admirers = user.getAdmirers().size();

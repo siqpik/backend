@@ -1,11 +1,9 @@
 package com.example.siqpik.domain;
 
-import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Entity
@@ -36,7 +34,6 @@ public class User {
     private LocalDateTime date;
 
     @OneToMany(mappedBy = "user")
-    @OrderBy("date DESC")
     private List<Photo> photos = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")

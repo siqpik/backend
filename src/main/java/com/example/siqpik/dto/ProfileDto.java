@@ -19,8 +19,8 @@ public class ProfileDto {
         name = user.getUserName();
         pics = user.getPhotos()
                 .stream()
-//                .sorted(Comparator.comparing(Photo::getDate)
-//                        .reversed())
+                .sorted(Comparator.comparing(Photo::getDate)
+                        .reversed())
                 .map(PhotoDto::new)
                 .collect(toList());
         admirers = user.getAdmirers().size();
