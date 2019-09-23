@@ -37,16 +37,22 @@ public class User {
     private List<Photo> photos = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Admirer> admirers = new LinkedHashSet<>();
+    private Set<Admirer> admirers = new LinkedHashSet<>();  //Users I admire
 
-    @OneToMany(mappedBy = "user")
-    private Set<Admiring> admirings = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "admirer")
+    private Set<Admirer> admiring = new LinkedHashSet<>(); //Users admiring me
 
     @OneToMany(mappedBy = "user")
     private List<Tag> tags = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
     private List<Like> picsUserLikes = new LinkedList<>();
+
+    @OneToMany(mappedBy = "sender")
+    private List<Request> requestsSend = new LinkedList<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Request> requestsReceived = new LinkedList<>();
 
 
     /******************************************************
@@ -87,8 +93,8 @@ public class User {
         return admirers;
     }
 
-    public Set<Admiring> getAdmirings() {
-        return admirings;
+    public Set<Admirer> getAdmiring() {
+        return admiring;
     }
 
     public String getProfilePicUrl() {

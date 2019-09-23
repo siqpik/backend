@@ -1,11 +1,11 @@
 package com.example.siqpik.service;
 
 import com.example.siqpik.domain.Admirer;
-import com.example.siqpik.domain.Admiring;
+import com.example.siqpik.domain.Request;
 import com.example.siqpik.domain.User;
+import com.example.siqpik.repositories.RequestRepository;
 import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.repositories.AdmirerRepository;
-import com.example.siqpik.repositories.AdmiringRepository;
 import com.example.siqpik.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,23 @@ import static java.util.stream.Collectors.toList;
 public class UserService {
 
     private final UserRepository userRepo;
-    private final AdmiringRepository admiringRepo;
-    private  final AdmirerRepository admirerRepo;
+    private final AdmirerRepository admirerRepo;
+    private final RequestRepository requestRepo;
 
-    public UserService(UserRepository userRepo, AdmiringRepository admiringRepo, AdmirerRepository admirerRepo) {
+    public UserService(UserRepository userRepo,
+                       AdmirerRepository admirerRepo,
+                       RequestRepository requestRepo) {
         this.userRepo = userRepo;
-        this.admiringRepo = admiringRepo;
         this.admirerRepo = admirerRepo;
+        this.requestRepo = requestRepo;
     }
 
     public UserRepository getUserRepo() {
         return userRepo;
+    }
+
+    public RequestRepository getRequestRepo() {
+        return requestRepo;
     }
 
     public Optional<User> getUser(Authentication authentication) {
@@ -38,18 +44,8 @@ public class UserService {
                 : userRepo.findByUserName(authentication.getName());
     }
 
-    public void createAdmirer(User userLogin, User otherUser) {
-        admiringRepo.save(new Admiring(userLogin, otherUser));
-        admirerRepo.save(new Admirer(userLogin, otherUser));
-    }
-
-    public Boolean isAdmiring(User user, User anotherUser) {
-        return user.getAdmirings()
-                .stream()
-                .anyMatch(admiring -> admiring.getAdmiring()
-                        .getId()
-                        .equals(anotherUser.getId())
-                );
+    public void createAdmirer(User admirer, User user) {
+        admirerRepo.save(new Admirer(admirer, user));
     }
 
     public List<ProfileResult> getProfileResults(String name){
@@ -58,5 +54,11 @@ public class UserService {
                 .map(user -> new ProfileResult(user.getUserName(), user.getName()))
                  .collect(toList());
     }
+
+    public void createRequestToAdmire(User sender, User receive) {
+        requestRepo.save(new Request(sender, receive));
+    }
+
+
 
 }

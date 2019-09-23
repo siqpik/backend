@@ -3,6 +3,7 @@ package com.example.siqpik.resource;
 import com.example.siqpik.dto.*;
 import com.example.siqpik.service.PhotoService;
 import com.example.siqpik.service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -68,20 +71,20 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @PostMapping("/comment/{id]")
-    private ResponseEntity putComment(@PathVariable Long id, @RequestBody String commentary, Authentication auth) {
-        return userService.getUser(auth)
-                .map(user -> photoService.getPhotoRepo()
-                        .findById(id)
-                        .filter(pic -> userService.isAdmiring(user, pic.getUser()))
-                        .map(pic -> {
-                            photoService.createComment(user, pic, commentary);
-                            return ResponseEntity.status(201).build();
-                        })
-                        .orElse(ResponseEntity.status(404).build())
-
-                ).orElse(ResponseEntity.status(401).build());
-    }
+//    @PostMapping("/comment/{id]")
+//    private ResponseEntity putComment(@PathVariable Long id, @RequestBody String commentary, Authentication auth) {
+//        return userService.getUser(auth)
+//                .map(user -> photoService.getPhotoRepo()
+//                        .findById(id)
+//                        .filter(pic -> userService.isAdmiring(user, pic.getUser()))
+//                        .map(pic -> {
+//                            photoService.createComment(user, pic, commentary);
+//                            return ResponseEntity.status(201).build();
+//                        })
+//                        .orElse(ResponseEntity.status(404).build())
+//
+//                ).orElse(ResponseEntity.status(401).build());
+//    }
 
     @GetMapping("/userLogin")
     private ResponseEntity isUserLogin(Authentication auth) {
@@ -108,11 +111,61 @@ public class SiqpikResource {
     private ResponseEntity getAdmirings(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(
-                        user.getAdmirings()
+                        user.getAdmiring()
                                 .stream()
                                 .map(AdmiringDto::new)
                                 .collect(toList())
                         , HttpStatus.OK)
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
+
+    @PostMapping("/request/{receiver}")
+    private ResponseEntity requestAdmire(@PathVariable String userName, Authentication auth) {
+        return userService.getUser(auth)
+                .map(sender -> userService.getUserRepo()
+                        .findByUserName(userName)
+                        .map(receiver -> {
+                            userService.createRequestToAdmire(sender, receiver);
+                            return ResponseEntity.status(201).build();
+                        })
+                        .orElse(ResponseEntity.status(404).build())
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
+
+    @PostMapping("/request/{requestId}/{result}")
+    private ResponseEntity resultRequestAdmire(@PathVariable Long requestId, @PathVariable Boolean result, Authentication auth) {
+//        return result
+//                ? userService.getUser(auth)
+//                .map(user -> userService.getRequestRepo()
+//                        .findById(requestId)
+//                        .map(request -> {
+//                            request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
+//                            request.setStatus("Accepted");
+//                            userService.createAdmirer(request.getSender(), user);
+//                            return ResponseEntity.status(201).build();
+//                        })
+//                        .orElse(ResponseEntity.status(404).build())
+//                )
+//                .orElse(ResponseEntity.status(401).build())
+//                :
+        return userService.getUser(auth)
+                .map(user -> userService.getRequestRepo()
+                        .findById(requestId)
+                        .map(request -> {
+                            if (result) {
+                                request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
+                                request.setStatus("Accepted");
+                                userService.createAdmirer(request.getSender(), user);
+                                return ResponseEntity.status(201).build();
+                            } else {
+                                request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
+                                request.setStatus("Canceled");
+                                return ResponseEntity.status(200).build();
+                            }
+                        })
+                        .orElse(ResponseEntity.status(404).build())
                 )
                 .orElse(ResponseEntity.status(401).build());
     }

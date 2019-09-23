@@ -26,7 +26,7 @@ public class ProfileLoggedDto {
                 .map(PhotoDto::new)
                 .collect(toList());
         admirers = user.getAdmirers().size();
-        admiring = user.getAdmirings().size();
+        admiring = user.getAdmiring().size();
         profilePicUrl = user.getProfilePicUrl();
     }
 
