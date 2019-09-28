@@ -1,5 +1,7 @@
 package com.example.siqpik;
 
+import com.example.siqpik.domain.Admirer;
+import com.example.siqpik.domain.User;
 import com.example.siqpik.repositories.AdmirerRepository;
 import com.example.siqpik.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -7,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
 
 @Controller

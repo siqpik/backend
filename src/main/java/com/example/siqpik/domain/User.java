@@ -69,6 +69,12 @@ public class User {
         this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
+    public User(String username, String password) {
+        this.userName = username;
+        this.password = password;
+        this.date = LocalDateTime.now(ZoneId.of("GMT"));
+    }
+
     /******************************************************
      *          Getters & Setters
      *****************************************************/
@@ -103,6 +109,14 @@ public class User {
 
     public void setProfilePicUrl(String profilePicUrl) {
         this.profilePicUrl = profilePicUrl;
+    }
+
+    public void setuserName(String name) {
+        this.userName = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getName() {
