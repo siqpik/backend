@@ -1,11 +1,10 @@
 package com.example.siqpik.resource;
 
 import com.example.siqpik.domain.User;
-import com.example.siqpik.dto.*;
-import com.example.siqpik.repositories.UserRepository;
+import com.example.siqpik.dto.AdmirerDto;
+import com.example.siqpik.dto.AdmiringDto;
 import com.example.siqpik.service.PhotoService;
 import com.example.siqpik.service.UserService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -79,10 +74,10 @@ public class SiqpikResource {
 
 //    @PostMapping("/comment/{id]")
 //    private ResponseEntity putComment(@PathVariable Long id, @RequestBody String commentary, Authentication auth) {
-//        return userService.getUser(auth)
+//        return userService.getAdmired(auth)
 //                .map(user -> photoService.getPhotoRepo()
 //                        .findById(id)
-//                        .filter(pic -> userService.isAdmiring(user, pic.getUser()))
+//                        .filter(pic -> userService.isAdmiring(user, pic.getAdmired()))
 //                        .map(pic -> {
 //                            photoService.createComment(user, pic, commentary);
 //                            return ResponseEntity.status(201).build();
@@ -130,7 +125,7 @@ public class SiqpikResource {
     private ResponseEntity getAdmirings(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(
-                        user.getAdmiring()
+                        user.getAdmirings()
                                 .stream()
                                 .map(AdmiringDto::new)
                                 .collect(toList())
