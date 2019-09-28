@@ -29,7 +29,7 @@ public class ProfileDto {
                 .map(PhotoDto::new)
                 .collect(toList());
         admirers = user.getAdmirers().size();
-        admiring = user.getAdmiring().size();
+        admiring = user.getAdmirings().size();
         profilePicUrl = user.getProfilePicUrl();
     }
 
@@ -60,9 +60,9 @@ public class ProfileDto {
     public Boolean getIsAdmiring() {
         return getIsActualUser()
                 ? null
-                : loggedUser.getAdmiring()
+                : loggedUser.getAdmirings()
                 .stream()
-                .anyMatch(admirer -> admirer.getUser().equals(user));
+                .anyMatch(admirer -> admirer.getAdmired().equals(user));
     }
 
     public String getRequestStatus() {
