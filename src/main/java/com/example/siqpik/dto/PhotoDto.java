@@ -2,7 +2,9 @@ package com.example.siqpik.dto;
 
 import com.example.siqpik.domain.Photo;
 
+import java.time.LocalDate;
 import java.util.List;
+
 import static java.util.stream.Collectors.toList;
 
 public class PhotoDto {
@@ -11,11 +13,13 @@ public class PhotoDto {
     private String url;
     private List<String> likes;
     private List<String> tags;
+    private LocalDate date;
     private List<CommentDto> comments;
 
     public PhotoDto(Photo photo) {
         id = photo.getId();
         url = photo.getUrl();
+        date = photo.getDate().toLocalDate();
         likes = photo.getLikes()
                 .stream()
                 .map(like -> like.getUser().getUserName())
@@ -44,5 +48,9 @@ public class PhotoDto {
 
     public List<String> getUsersTag() {
         return tags;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }
