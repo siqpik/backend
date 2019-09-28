@@ -31,7 +31,7 @@ public class User {
     private String profilePicUrl = "https://static.hiphopdx.com/2017/11/B-Real-827x620.jpg";
 
     @Column
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now(ZoneId.of("GMT"));
 
     @OneToMany(mappedBy = "user")
     private List<Photo> photos = new LinkedList<>();
@@ -66,13 +66,6 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.date = LocalDateTime.now(ZoneId.of("GMT"));
-    }
-
-    public User(String username, String password) {
-        this.userName = username;
-        this.password = password;
-        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     /******************************************************
