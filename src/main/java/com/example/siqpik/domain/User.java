@@ -112,4 +112,12 @@ public class User {
     public LocalDateTime getDate() {
         return date;
     }
+
+    public List<Request> getRequestsReceived() {
+        return requestsReceived;
+    }
+
+    public List<Request> getRequestsSend() {
+        return requestsSend;
+    }
 }

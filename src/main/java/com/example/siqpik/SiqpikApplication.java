@@ -20,8 +20,7 @@ public class SiqpikApplication {
 	@SuppressWarnings("Duplicates")
 	@Bean
 	public CommandLineRunner initData(UserRepository userRepo,
-									  AdmirerRepository admirerRepo,
-									  AdmiringRepository admiringRepo) {
+									  AdmirerRepository admirerRepo) {
 		return (args) -> {
 
 //			User ronn = new User("RDave", "Ronnie Dave", "dave@gnmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));

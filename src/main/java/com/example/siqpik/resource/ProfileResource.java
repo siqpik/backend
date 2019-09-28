@@ -35,13 +35,9 @@ public class ProfileResource {
     @GetMapping("/{userName}")
     private ResponseEntity getProfile(@PathVariable String userName, Authentication auth) {
         return userService.getUser(auth)
-                .map(user -> user.getUserName().equals(userName)
-                        ? new ResponseEntity<>(new ProfileLoggedDto(user), HttpStatus.OK)
-                        : userService.getUserRepo().findByUserName(userName)
-                        .map(user1 -> new ResponseEntity<>(
-                                new ProfileDto(user1),
-                                HttpStatus.OK)
-                        )
+                .map(loggedUser -> userService.getUserRepo()
+                        .findByUserName(userName)
+                        .map(user -> new ResponseEntity<>(new ProfileDto(loggedUser, user), HttpStatus.OK))
                         .orElse(ResponseEntity.status(404).build())
                 )
                 .orElse(ResponseEntity.status(401).build());

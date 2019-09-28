@@ -49,4 +49,12 @@ public class Request {
     public User getSender() {
         return sender;
     }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

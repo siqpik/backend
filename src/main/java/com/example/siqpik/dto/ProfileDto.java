@@ -1,5 +1,6 @@
 package com.example.siqpik.dto;
 import com.example.siqpik.domain.Photo;
+import com.example.siqpik.domain.Request;
 import com.example.siqpik.domain.User;
 
 import java.util.Comparator;
@@ -14,8 +15,12 @@ public class ProfileDto {
     private Integer admirers;
     private Integer admiring;
     private String profilePicUrl;
+    private User loggedUser;    //User that is log in
+    private User user;      //The user of whom we want to see the profile
 
-    public ProfileDto(User user) {
+    public ProfileDto(User loggedUser, User user) {
+        this.loggedUser = loggedUser;
+        this.user = user;
         name = user.getUserName();
         pics = user.getPhotos()
                 .stream()
@@ -47,4 +52,28 @@ public class ProfileDto {
     public String getProfilePicUrl() {
         return profilePicUrl;
     }
+
+    public Boolean getIsActualUser() {
+        return loggedUser.getId().equals(user.getId());
+    }
+
+    public Boolean getIsAdmiring() {
+        return getIsActualUser()
+                ? null
+                : loggedUser.getAdmiring()
+                .stream()
+                .anyMatch(admirer -> admirer.getUser().equals(user));
+    }
+
+    public String getRequestStatus() {
+        return getIsActualUser()
+                ? null
+                : loggedUser.getRequestsSend()
+                .stream()
+                .filter(request -> request.getReceiver().equals(user))
+                .findFirst()
+                .map(Request::getStatus)
+                .orElse(null);
+    }
+
 }

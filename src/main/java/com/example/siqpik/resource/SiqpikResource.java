@@ -136,28 +136,14 @@ public class SiqpikResource {
 
     @PostMapping("/request/{requestId}/{result}")
     private ResponseEntity resultRequestAdmire(@PathVariable Long requestId, @PathVariable Boolean result, Authentication auth) {
-//        return result
-//                ? userService.getUser(auth)
-//                .map(user -> userService.getRequestRepo()
-//                        .findById(requestId)
-//                        .map(request -> {
-//                            request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
-//                            request.setStatus("Accepted");
-//                            userService.createAdmirer(request.getSender(), user);
-//                            return ResponseEntity.status(201).build();
-//                        })
-//                        .orElse(ResponseEntity.status(404).build())
-//                )
-//                .orElse(ResponseEntity.status(401).build())
-//                :
         return userService.getUser(auth)
                 .map(user -> userService.getRequestRepo()
                         .findById(requestId)
                         .map(request -> {
-                            if (result) {
+                            if (result && user.getRequestsReceived().contains(request)) {
+                                userService.createAdmirer(request.getSender(), user);
                                 request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
                                 request.setStatus("Accepted");
-                                userService.createAdmirer(request.getSender(), user);
                                 return ResponseEntity.status(201).build();
                             } else {
                                 request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));

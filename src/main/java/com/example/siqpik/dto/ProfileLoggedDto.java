@@ -50,4 +50,8 @@ public class ProfileLoggedDto {
     public String getProfilePicUrl() {
         return profilePicUrl;
     }
+
+    public Boolean getIsActualuser() {
+        return true;
+    }
 }
