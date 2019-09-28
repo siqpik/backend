@@ -1,4 +1,51 @@
 package com.example.siqpik.service;
 
+import com.example.siqpik.dto.PhotoDto;
+import com.example.siqpik.resource.model.PostResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
+@Service
 public class PostService {
+
+    private final UserService userService;
+
+
+    public PostService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public List<PostResult> getPosts(Authentication auth){
+        return userService.getUser(auth)
+                .map(user -> {
+                    List<PostResult> admiredsPosts = user.getAdmirings()
+                            .stream()
+                            .flatMap(admiring -> admiring.getAdmired().getPhotos().stream()
+                                    .map(pic -> new PostResult(
+                                                    admiring.getAdmired().getProfilePicUrl(),
+                                                    admiring.getAdmired().getUserName(),
+                                                    new PhotoDto(pic)
+                                            )
+                                    )
+                            ).collect(toList());
+
+                    List<PostResult> myPosts = user.getPhotos().stream()
+                            .map(pic -> new PostResult(
+                                    user.getProfilePicUrl(),
+                                    user.getUserName(),
+                                    new PhotoDto(pic)
+                            )).collect(toList());
+
+                    myPosts.addAll(admiredsPosts);
+
+                    Collections.reverse(myPosts);
+
+                    return myPosts;
+                }).orElse(Collections.emptyList());
+    }
 }
