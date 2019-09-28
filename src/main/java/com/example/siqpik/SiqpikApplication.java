@@ -2,17 +2,25 @@ package com.example.siqpik;
 
 import com.example.siqpik.domain.Admirer;
 import com.example.siqpik.domain.Admiring;
-import com.example.siqpik.domain.User;
 import com.example.siqpik.repositories.AdmirerRepository;
 import com.example.siqpik.repositories.AdmiringRepository;
 import com.example.siqpik.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Controller;
+
+import java.util.Optional;
 
 @Controller
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -148,3 +156,23 @@ public class SiqpikApplication {
 	}
 
 }
+
+//@Configuration
+//class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
+//
+//	@Autowired
+//	UserRepository userRepository;
+//
+//	@Override
+//	public void init(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.userDetailsService(inputName-> {
+//			Optional<com.example.siqpik.domain.User> user = userRepository.findByUserName(inputName);
+//			if (user.isPresent()) {
+//				return new User(user.get().getUserName(), user.get().getPassword(),
+//						AuthorityUtils.createAuthorityList("USER"));
+//			} else {
+//				throw new UsernameNotFoundException("Unknown user: " + inputName);
+//			}
+//		});
+//	}
+//}

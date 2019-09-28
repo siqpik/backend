@@ -1,17 +1,23 @@
 package com.example.siqpik.resource;
 
+import com.example.siqpik.domain.User;
 import com.example.siqpik.dto.*;
+import com.example.siqpik.repositories.UserRepository;
 import com.example.siqpik.service.PhotoService;
 import com.example.siqpik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -90,7 +96,44 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(404).build());
     }
 
-    @GetMapping("/admirers")
+
+    private Map<String, Object> makeMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        map.put(key, value);
+        return map;
+    }
+
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public ResponseEntity<Map<String, Object>> createUser(@RequestBody User user) {
+
+        System.out.println("entered");
+        System.out.println(user.getUserName());
+
+        System.out.println(user.getPassword());
+
+        if (user.getUserName().isEmpty() || user.getPassword().isEmpty()) {
+            return new ResponseEntity<>(makeMap("error", "Fields Empty"), HttpStatus.FORBIDDEN);
+        }
+
+        Optional<User> newUser = userService.getUserRepo().findByUserName(user.getUserName());
+
+        if (newUser.isPresent()) {
+            return new ResponseEntity<>(makeMap("error", "Username already exists"), HttpStatus.CONFLICT);
+        }
+
+        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword()));
+
+
+        userService.getUserRepo().save(user);
+
+        return new ResponseEntity<>(makeMap("id", user.getId()), HttpStatus.CREATED);
+
+    }
+
+
+        @GetMapping("/admirers")
     private ResponseEntity getAdmirers(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(

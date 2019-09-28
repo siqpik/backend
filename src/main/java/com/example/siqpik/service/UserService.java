@@ -38,6 +38,8 @@ public class UserService {
                 : userRepo.findByUserName(authentication.getName());
     }
 
+
+
     public void createAdmirer(User userLogin, User otherUser) {
         admiringRepo.save(new Admiring(userLogin, otherUser));
         admirerRepo.save(new Admirer(userLogin, otherUser));
