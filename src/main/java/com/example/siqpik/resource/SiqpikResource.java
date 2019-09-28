@@ -99,44 +99,20 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(404).build());
     }
 
-
-    private Map<String, Object> makeMap(String key, Object value) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(key, value);
-        map.put(key, value);
-        return map;
+    @PostMapping("/users")
+    public ResponseEntity createUser(@RequestBody User user) {
+        return user.getUserName().isEmpty() || user.getPassword().isEmpty()
+                ? ResponseEntity.status(403).build()
+                : userService.getUserRepo().findByUserName(user.getUserName())
+                .map(user1 -> ResponseEntity.status(409).build())
+                .orElseGet(() -> {
+                        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword()));
+                        userService.getUserRepo().save(user);
+                        return new ResponseEntity<>(HttpStatus.CREATED);
+                });
     }
 
-
-    @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public ResponseEntity<Map<String, Object>> createUser(@RequestBody User user) {
-
-        System.out.println("entered");
-        System.out.println(user.getUserName());
-
-        System.out.println(user.getPassword());
-
-        if (user.getUserName().isEmpty() || user.getPassword().isEmpty()) {
-            return new ResponseEntity<>(makeMap("error", "Fields Empty"), HttpStatus.FORBIDDEN);
-        }
-
-        Optional<User> newUser = userService.getUserRepo().findByUserName(user.getUserName());
-
-        if (newUser.isPresent()) {
-            return new ResponseEntity<>(makeMap("error", "Username already exists"), HttpStatus.CONFLICT);
-        }
-
-        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword()));
-
-
-        userService.getUserRepo().save(user);
-
-        return new ResponseEntity<>(makeMap("id", user.getId()), HttpStatus.CREATED);
-
-    }
-
-
-        @GetMapping("/admirers")
+    @GetMapping("/admirers")
     private ResponseEntity getAdmirers(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(
