@@ -36,11 +36,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Photo> photos = new LinkedList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "admired")
     private Set<Admirer> admirers = new LinkedHashSet<>();  //Users I admire
 
     @OneToMany(mappedBy = "admirer")
-    private Set<Admirer> admiring = new LinkedHashSet<>(); //Users admiring me
+    private Set<Admirer> admirings = new LinkedHashSet<>(); //Users admiring me
 
     @OneToMany(mappedBy = "user")
     private List<Tag> tags = new LinkedList<>();
@@ -92,8 +92,8 @@ public class User {
         return admirers;
     }
 
-    public Set<Admirer> getAdmiring() {
-        return admiring;
+    public Set<Admirer> getAdmirings() {
+        return admirings;
     }
 
     public String getProfilePicUrl() {
