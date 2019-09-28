@@ -66,6 +66,7 @@ public class User {
     public User(String username, String password) {
         this.userName = username;
         this.password = password;
+        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     /******************************************************
