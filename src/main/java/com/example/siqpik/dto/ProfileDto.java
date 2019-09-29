@@ -1,4 +1,5 @@
 package com.example.siqpik.dto;
+import com.example.siqpik.domain.Notification;
 import com.example.siqpik.domain.Photo;
 import com.example.siqpik.domain.Request;
 import com.example.siqpik.domain.User;
@@ -74,6 +75,15 @@ public class ProfileDto {
                 .findFirst()
                 .map(Request::getStatus)
                 .orElse(null);
+    }
+
+    public Integer getNotifications() {
+        return getIsActualUser()
+                ? (int)loggedUser.getNotifications()
+                .stream()
+                .filter(Notification::getViewed)
+                .count()
+                : null;
     }
 
 }

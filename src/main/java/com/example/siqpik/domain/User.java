@@ -58,6 +58,7 @@ public class User {
     private List<Request> requestsReceived = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
+    @OrderBy("date DESC")
     private List<Notification> notifications = new LinkedList<>();
 
 
@@ -132,5 +133,9 @@ public class User {
 
     public List<Request> getRequestsSend() {
         return requestsSend;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 }

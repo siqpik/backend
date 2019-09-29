@@ -65,4 +65,8 @@ public class Notification {
         this.tag = tag;
         this.type = "tag";
     }
+
+    public Boolean getViewed() {
+        return viewed;
+    }
 }

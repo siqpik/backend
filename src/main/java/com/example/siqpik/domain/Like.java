@@ -14,7 +14,7 @@ public class Like {
     private Long id;
 
     @Column
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now(ZoneId.of("GMT"));
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -29,7 +29,6 @@ public class Like {
     public Like(User user, Photo pic) {
         this.user = user;
         this.pic = pic;
-        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     public User getUser() {

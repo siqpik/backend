@@ -1,8 +1,10 @@
 package com.example.siqpik.service;
 
 import com.example.siqpik.domain.Admirer;
+import com.example.siqpik.domain.Notification;
 import com.example.siqpik.domain.Request;
 import com.example.siqpik.domain.User;
+import com.example.siqpik.repositories.NotificationRepository;
 import com.example.siqpik.repositories.RequestRepository;
 import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.repositories.AdmirerRepository;
@@ -21,13 +23,16 @@ public class UserService {
     private final UserRepository userRepo;
     private final AdmirerRepository admirerRepo;
     private final RequestRepository requestRepo;
+    private final NotificationRepository notificationRepo;
 
     public UserService(UserRepository userRepo,
                        AdmirerRepository admirerRepo,
-                       RequestRepository requestRepo) {
+                       RequestRepository requestRepo,
+                       NotificationRepository notificationRepo) {
         this.userRepo = userRepo;
         this.admirerRepo = admirerRepo;
         this.requestRepo = requestRepo;
+        this.notificationRepo = notificationRepo;
     }
 
     public UserRepository getUserRepo() {
@@ -56,7 +61,10 @@ public class UserService {
     }
 
     public void createRequestToAdmire(User sender, User receive) {
-        requestRepo.save(new Request(sender, receive));
+        Request request = new Request(sender, receive);
+        Notification notification = new Notification(request);
+        requestRepo.save(request);
+        notificationRepo.save(notification);
     }
 
 
