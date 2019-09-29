@@ -22,13 +22,13 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "photo_id")
-    private Photo pic;
+    private Photo photo;
 
     private String commentary;
 
-    public Comment(User user, Photo pic, String commentary) {
+    public Comment(User user, Photo photo, String commentary) {
         this.user = user;
-        this.pic = pic;
+        this.photo = photo;
         this.commentary = commentary;
         this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
@@ -39,5 +39,9 @@ public class Comment {
 
     public String getCommentary() {
         return commentary;
+    }
+
+    public Photo getPhoto() {
+        return photo;
     }
 }

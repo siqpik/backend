@@ -48,6 +48,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Like> picsUserLikes = new LinkedList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments = new LinkedList<>();
+
     @OneToMany(mappedBy = "sender")
     private List<Request> requestsSend = new LinkedList<>();
 

@@ -1,6 +1,5 @@
 package com.example.siqpik.domain;
 
-import org.hibernate.type.EmbeddedComponentType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -33,7 +31,7 @@ public class Tag {
     private Photo pic;
 
     @Column
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now(ZoneId.of("GMT"));
 
     /******************************************************
      *          Constructors
@@ -44,7 +42,6 @@ public class Tag {
     public Tag(User user, Photo pic) {
         this.user = user;
         this.pic = pic;
-        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     public User getUser() {
