@@ -15,16 +15,16 @@ public class Notification {
     @JoinColumn(name= "user_id")
     private User user;
 
-    @Column
+    @ManyToOne
     private Comment comment;
 
-    @Column
+    @ManyToOne
     private Like like;
 
-    @Column
+    @ManyToOne
     private Request request;
 
-    @Column
+    @ManyToOne
     private Tag tag;
 
     @Column

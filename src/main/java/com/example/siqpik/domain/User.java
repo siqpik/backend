@@ -57,6 +57,9 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Request> requestsReceived = new LinkedList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Notification> notifications = new LinkedList<>();
+
 
     /******************************************************
      *          Constructors

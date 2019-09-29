@@ -24,6 +24,8 @@ public class Like {
     @JoinColumn(name = "pic_id")
     private Photo pic;
 
+    public Like(){}
+
     public Like(User user, Photo pic) {
         this.user = user;
         this.pic = pic;
