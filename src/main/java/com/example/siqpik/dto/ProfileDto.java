@@ -78,12 +78,13 @@ public class ProfileDto {
     }
 
     public Integer getNotifications() {
-        return getIsActualUser()
-                ? (int)loggedUser.getNotifications()
-                .stream()
-                .filter(Notification::getViewed)
-                .count()
-                : -1;
+        return 0;
+//        return getIsActualUser()
+//                ? loggedUser.getNotifications()
+//                .stream()
+//                .filter(Notification::getViewed)
+//                .count()
+//                : -1;
     }
 
 }
