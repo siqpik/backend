@@ -94,19 +94,6 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(404).build());
     }
 
-    @PostMapping("/users")
-    public ResponseEntity createUser(@RequestBody User user) {
-        return user.getUserName().isEmpty() || user.getPassword().isEmpty()
-                ? ResponseEntity.status(403).build()
-                : userService.getUserRepo().findByUserName(user.getUserName())
-                .map(user1 -> ResponseEntity.status(409).build())
-                .orElseGet(() -> {
-                        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword()));
-                        userService.getUserRepo().save(user);
-                        return new ResponseEntity<>(HttpStatus.CREATED);
-                });
-    }
-
     @GetMapping("/admirers")
     private ResponseEntity getAdmirers(Authentication aut) {
         return userService.getUser(aut)
@@ -169,4 +156,13 @@ public class SiqpikResource {
                 )
                 .orElse(ResponseEntity.status(401).build());
     }
+
+//    @GetMapping("/notifications")
+//    private ResponseEntity getNotifications(Authentication auth) {
+//        return userService.getUser(auth)
+//                .map(user -> user.getNotifications()
+//                        .stream()
+//                        .map()
+//                )
+//    }
 }

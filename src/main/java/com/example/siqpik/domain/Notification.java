@@ -31,7 +31,7 @@ public class Notification {
     private String type;
 
     @Column
-    private Boolean viewed;
+    private Boolean viewed = false;
 
     @Column
     private LocalDateTime date;

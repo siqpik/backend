@@ -25,27 +25,27 @@ public class SiqpikApplication {
 	public CommandLineRunner initData(UserRepository userRepo,
 									  AdmirerRepository admirerRepo) {
 		return (args) -> {
-
+//
 //			User ronn = new User("RDave", "Ronnie Dave", "dave@gnmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
 //			User yeray = new User("Yery", "Yeray Rodriguez", "yeray@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
 //			User pancho = new User("CaptainAmerica", "Pancho Viz", "p.viz@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
 //			User laura = new User("Lau", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User jordan = new User("Jordan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User lebron = new User("Lebron", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User kobe = new User("Kobe", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User iverson = new User("Iverson", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User duncan = new User("Duncan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User messi = new User("Messi", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User xavi = new User("Xavi", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User oldDirty = new User("OldDirtyBastard", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User paulPierce = new User("Pierce", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User durant = new User("Durant", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User rakim = new User("Rakim", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User biggie = new User("Biggie", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User preemo = new User("Preemo", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User jayZ = new User("JayZ", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User bReal = new User("BReal", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
-//			User methodMan = new User("MethodMan", "Laura R.", "lau@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User jordan = new User("Jordan", "Laura R.", "jordan@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User lebron = new User("Lebron", "Laura R.", "lb@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User kobe = new User("Kobe", "Laura R.", "kobe@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User iverson = new User("Iverson", "Laura R.", "iverson@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User duncan = new User("Duncan", "Laura R.", "tim@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User messi = new User("Messi", "Laura R.", "leo@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User xavi = new User("Xavi", "Laura R.", "xavi@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User oldDirty = new User("OldDirtyBastard", "Laura R.", "odb@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User paulPierce = new User("Pierce", "Laura R.", "ppierce@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User durant = new User("Durant", "Laura R.", "kd@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User rakim = new User("Rakim", "Laura R.", "rakim@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User biggie = new User("Biggie", "Laura R.", "big@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User preemo = new User("Preemo", "Laura R.", "premier@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User jayZ = new User("JayZ", "Laura R.", "jayz@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User bReal = new User("BReal", "Laura R.", "breal@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
+//			User methodMan = new User("MethodMan", "Laura R.", "methodman@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
 //
 //										//RDave is admiring:
 //			//Yeray
@@ -81,26 +81,26 @@ public class SiqpikApplication {
 //			Admirer admirer12 = new Admirer(laura, jordan);
 //
 //
-//			userRepo.save(user1);
-//			userRepo.save(user2);
-//			userRepo.save(user3);
-//			userRepo.save(user4);
-//			userRepo.save(user5);
-//			userRepo.save(user6);
-//			userRepo.save(user7);
-//			userRepo.save(user8);
-//			userRepo.save(user9);
-//			userRepo.save(user10);
-//			userRepo.save(user11);
-//			userRepo.save(user12);
-//			userRepo.save(user13);
-//			userRepo.save(user14);
-//			userRepo.save(user15);
-//			userRepo.save(user16);
-//			userRepo.save(user17);
-//			userRepo.save(user18);
-//			userRepo.save(user19);
-//			userRepo.save(user20);
+//			userRepo.save(ronn);
+//			userRepo.save(yeray);
+//			userRepo.save(pancho);
+//			userRepo.save(laura);
+//			userRepo.save(jordan);
+//			userRepo.save(lebron);
+//			userRepo.save(kobe);
+//			userRepo.save(iverson);
+//			userRepo.save(duncan);
+//			userRepo.save(messi);
+//			userRepo.save(xavi);
+//			userRepo.save(oldDirty);
+//			userRepo.save(paulPierce);
+//			userRepo.save(durant);
+//			userRepo.save(rakim);
+//			userRepo.save(preemo);
+//			userRepo.save(jayZ);
+//			userRepo.save(bReal);
+//			userRepo.save(methodMan);
+//			userRepo.save(biggie);
 //
 //			admirerRepo.save(admirer1);
 //			admirerRepo.save(admirer2);
@@ -115,7 +115,7 @@ public class SiqpikApplication {
 //			admirerRepo.save(admirer11);
 //			admirerRepo.save(admirer12);
 
-			//////Test for CI/CD
+//			////Test for CI/CD
 
 		};
 	}
