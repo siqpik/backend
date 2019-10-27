@@ -83,7 +83,7 @@ public class ProfileDto {
                 .stream()
                 .filter(Notification::getViewed)
                 .count()
-                : null;
+                : -1;
     }
 
 }
