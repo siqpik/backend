@@ -1,6 +1,5 @@
 package com.example.siqpik.resource;
 
-import com.example.siqpik.auth.AuthenticationBean;
 import com.example.siqpik.domain.User;
 import com.example.siqpik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,11 @@ public class BasicAuthenticationResource {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/basicauth")
+    /*@GetMapping("/basicauth")
     public AuthenticationBean authenticate() {
         //throw new RuntimeException("Some Error has Happened! Contact Support at ***-***");
         return new AuthenticationBean("You are authenticated");
-    }
+    }*/
     @PostMapping("/register")
     public ResponseEntity createUser(@RequestBody User user) {
         return user.getUserName().isEmpty() || user.getPassword().isEmpty()

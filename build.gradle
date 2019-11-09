@@ -25,4 +25,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile group: 'com.cloudinary', name: 'cloudinary-http44', version: '1.22.1'
 	compile("org.springframework.boot:spring-boot-starter-security")
+
+	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+	compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
 }
