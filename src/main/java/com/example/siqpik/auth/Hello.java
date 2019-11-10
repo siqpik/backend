@@ -36,6 +36,7 @@ public class Hello {
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         } catch (BadCredentialsException e) {
+            e.printStackTrace();
             throw new Exception("Incorrect credentials", e);
         }
 
