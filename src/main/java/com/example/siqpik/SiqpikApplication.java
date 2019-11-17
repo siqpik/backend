@@ -1,9 +1,13 @@
 package com.example.siqpik;
 
 import com.example.siqpik.domain.Admirer;
+import com.example.siqpik.domain.Notification;
 import com.example.siqpik.domain.User;
+import com.example.siqpik.repositories.NotificationRepository;
+import com.example.siqpik.service.UserService;
 import com.example.siqpik.repositories.AdmirerRepository;
 import com.example.siqpik.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,12 +23,19 @@ public class SiqpikApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SiqpikApplication.class, args);
 	}
+	@Autowired
+	UserService userService;
 
 	@SuppressWarnings("Duplicates")
 	@Bean
 	public CommandLineRunner initData(UserRepository userRepo,
-									  AdmirerRepository admirerRepo) {
+									  AdmirerRepository admirerRepo,
+									  NotificationRepository notificationRepo) {
 		return (args) -> {
+//
+//			Notification noti = notificationRepo.getOne(2L);
+//			noti.setViewed(false);
+//			notificationRepo.save(noti);
 //
 //			User ronn = new User("RDave", "Ronnie Dave", "dave@gnmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));
 //			User yeray = new User("Yery", "Yeray Rodriguez", "yeray@gmail.com", PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("2323"));

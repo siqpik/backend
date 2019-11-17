@@ -1,6 +1,6 @@
 package com.example.siqpik.resource;
 
-import com.example.siqpik.domain.User;
+import com.example.siqpik.domain.Notification;
 import com.example.siqpik.dto.AdmirerDto;
 import com.example.siqpik.dto.AdmiringDto;
 import com.example.siqpik.service.PhotoService;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -140,15 +139,15 @@ public class SiqpikResource {
         return userService.getUser(auth)
                 .map(user -> userService.getRequestRepo()
                         .findById(requestId)
-                        .map(request -> {
-                            if (result && user.getRequestsReceived().contains(request)) {
-                                userService.createAdmirer(request.getSender(), user);
-                                request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
-                                request.setStatus("Accepted");
+                        .map(admireRequest -> {
+                            if (result && user.getRequestsReceived().contains(admireRequest)) {
+                                userService.createAdmirer(admireRequest.getSender(), user);
+                                admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
+                                admireRequest.setStatus("Accepted");
                                 return ResponseEntity.status(201).build();
                             } else {
-                                request.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
-                                request.setStatus("Canceled");
+                                admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
+                                admireRequest.setStatus("Canceled");
                                 return ResponseEntity.status(200).build();
                             }
                         })

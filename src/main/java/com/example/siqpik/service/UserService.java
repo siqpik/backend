@@ -1,11 +1,11 @@
 package com.example.siqpik.service;
 
+import com.example.siqpik.domain.AdmireRequest;
 import com.example.siqpik.domain.Admirer;
 import com.example.siqpik.domain.Notification;
-import com.example.siqpik.domain.Request;
 import com.example.siqpik.domain.User;
+import com.example.siqpik.repositories.AdmireRequestRepository;
 import com.example.siqpik.repositories.NotificationRepository;
-import com.example.siqpik.repositories.RequestRepository;
 import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.repositories.AdmirerRepository;
 import com.example.siqpik.repositories.UserRepository;
@@ -22,12 +22,12 @@ public class UserService {
 
     private final UserRepository userRepo;
     private final AdmirerRepository admirerRepo;
-    private final RequestRepository requestRepo;
+    private final AdmireRequestRepository requestRepo;
     private final NotificationRepository notificationRepo;
 
     public UserService(UserRepository userRepo,
                        AdmirerRepository admirerRepo,
-                       RequestRepository requestRepo,
+                       AdmireRequestRepository requestRepo,
                        NotificationRepository notificationRepo) {
         this.userRepo = userRepo;
         this.admirerRepo = admirerRepo;
@@ -39,8 +39,12 @@ public class UserService {
         return userRepo;
     }
 
-    public RequestRepository getRequestRepo() {
+    public AdmireRequestRepository getRequestRepo() {
         return requestRepo;
+    }
+
+    public NotificationRepository getNotificationRepo() {
+        return notificationRepo;
     }
 
     public Optional<User> getUser(Authentication authentication) {
@@ -61,12 +65,10 @@ public class UserService {
     }
 
     public void createRequestToAdmire(User sender, User receive) {
-        Request request = new Request(sender, receive);
+        AdmireRequest request = new AdmireRequest(sender, receive);
         Notification notification = new Notification(request);
         requestRepo.save(request);
         notificationRepo.save(notification);
     }
-
-
 
 }

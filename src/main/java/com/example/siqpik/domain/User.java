@@ -52,10 +52,10 @@ public class User {
     private List<Comment> comments = new LinkedList<>();
 
     @OneToMany(mappedBy = "sender")
-    private List<Request> requestsSend = new LinkedList<>();
+    private List<AdmireRequest> requestsSend = new LinkedList<>();
 
     @OneToMany(mappedBy = "receiver")
-    private List<Request> requestsReceived = new LinkedList<>();
+    private List<AdmireRequest> requestsReceived = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
     @OrderBy("date DESC")
@@ -127,11 +127,11 @@ public class User {
         return date;
     }
 
-    public List<Request> getRequestsReceived() {
+    public List<AdmireRequest> getRequestsReceived() {
         return requestsReceived;
     }
 
-    public List<Request> getRequestsSend() {
+    public List<AdmireRequest> getRequestsSend() {
         return requestsSend;
     }
 

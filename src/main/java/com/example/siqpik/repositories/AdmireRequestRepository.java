@@ -1,9 +1,9 @@
 package com.example.siqpik.repositories;
 
-import com.example.siqpik.domain.Request;
+import com.example.siqpik.domain.AdmireRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface RequestRepository extends JpaRepository<Request, Long> {
+public interface AdmireRequestRepository extends JpaRepository<AdmireRequest, Long> {
 }

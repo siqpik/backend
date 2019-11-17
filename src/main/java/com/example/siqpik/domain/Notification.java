@@ -2,6 +2,7 @@ package com.example.siqpik.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 public class Notification {
@@ -22,7 +23,7 @@ public class Notification {
     private Like like;
 
     @ManyToOne
-    private Request request;
+    private AdmireRequest request;
 
     @ManyToOne
     private Tag tag;
@@ -34,7 +35,7 @@ public class Notification {
     private Boolean viewed = false;
 
     @Column
-    private LocalDateTime date;
+    private LocalDateTime date = LocalDateTime.now(ZoneId.of("GMT"));
 
     public Notification(){
 
@@ -52,10 +53,8 @@ public class Notification {
         this.type = "like";
     }
 
-    public Notification(Request request) {
-        this.user = request.getStatus().equals("Pending")
-                ? request.getReceiver()
-                : request.getSender();
+    public Notification(AdmireRequest request) {
+        this.user = request.getSender();
         this.request = request;
         this.type = "request";
     }
@@ -68,5 +67,9 @@ public class Notification {
 
     public Boolean getViewed() {
         return viewed;
+    }
+
+    public void setViewed(Boolean viewed) {
+        this.viewed = viewed;
     }
 }

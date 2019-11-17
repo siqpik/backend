@@ -6,7 +6,7 @@ import java.time.ZoneId;
 
 @Entity
 @Table(name = "requests")
-public class Request {
+public class AdmireRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +28,9 @@ public class Request {
 
     private String status;
 
-    public Request() {}
+    public AdmireRequest() {}
 
-    public Request(User sender, User receiver) {
+    public AdmireRequest(User sender, User receiver) {
         this.sender =sender;
         this.receiver = receiver;
         this.creationDate = LocalDateTime.now(ZoneId.of("GMT"));
