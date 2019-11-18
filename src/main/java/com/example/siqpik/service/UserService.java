@@ -1,17 +1,13 @@
 package com.example.siqpik.service;
 
-import com.example.siqpik.domain.AdmireRequest;
-import com.example.siqpik.domain.Admirer;
-import com.example.siqpik.domain.Notification;
-import com.example.siqpik.domain.User;
-import com.example.siqpik.repositories.AdmireRequestRepository;
-import com.example.siqpik.repositories.NotificationRepository;
+import com.example.siqpik.domain.*;
+import com.example.siqpik.repositories.*;
 import com.example.siqpik.resource.model.ProfileResult;
-import com.example.siqpik.repositories.AdmirerRepository;
-import com.example.siqpik.repositories.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,4 +67,12 @@ public class UserService {
         notificationRepo.save(notification);
     }
 
+    public Optional<AttemptedPics> getLastAttempt(User user) {
+        return user.getAttemptedPics()
+                .stream()
+                .filter(attemptedPic -> attemptedPic
+                        .getDate()
+                        .isEqual(LocalDate.now(ZoneId.of("GMT"))))
+                .findFirst();
+    }
 }

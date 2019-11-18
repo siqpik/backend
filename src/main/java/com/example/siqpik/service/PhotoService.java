@@ -2,10 +2,8 @@ package com.example.siqpik.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
-import com.example.siqpik.domain.Comment;
-import com.example.siqpik.domain.Like;
-import com.example.siqpik.domain.Photo;
-import com.example.siqpik.domain.User;
+import com.example.siqpik.domain.*;
+import com.example.siqpik.repositories.AttemptedPicsRepository;
 import com.example.siqpik.repositories.CommentRepository;
 import com.example.siqpik.repositories.LikeRepository;
 import com.example.siqpik.repositories.PhotoRepository;
@@ -18,20 +16,26 @@ import java.util.Map;
 @Service
 public class PhotoService {
 
+    private final String CLOUD_NAME = "siqpik";
+    private final String API_KEY = "437532797296387";
+    private final String API_SECRET = "WLHW9vutYNCgmK4hFvPAzja2Sb0";
+
     private final PhotoRepository photoRepo;
     private final LikeRepository likeRepo;
     private final CommentRepository commentRepo;
+    private final AttemptedPicsRepository attemptedPicsRepo;
 
-    public PhotoService(PhotoRepository photoRepo, LikeRepository likeRepo, CommentRepository commentRepo) {
+    public PhotoService(PhotoRepository photoRepo, LikeRepository likeRepo, CommentRepository commentRepo, AttemptedPicsRepository attemptedPicsRepo) {
         this.photoRepo = photoRepo;
         this.likeRepo = likeRepo;
         this.commentRepo = commentRepo;
+        this.attemptedPicsRepo = attemptedPicsRepo;
     }
 
     private Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "siqpik",
-            "api_key", "437532797296387",
-            "api_secret", "WLHW9vutYNCgmK4hFvPAzja2Sb0"));
+            "cloud_name", CLOUD_NAME,
+            "api_key", API_KEY,
+            "api_secret", API_SECRET));
 
     public PhotoRepository getPhotoRepo() {
         return photoRepo;
@@ -48,5 +52,14 @@ public class PhotoService {
 
     public void createComment(User user, Photo pic, String commentary) {
         commentRepo.save(new Comment(user, pic, commentary));
+    }
+
+    public void addAttempt(AttemptedPics attemptedPics) {
+        attemptedPics.addAttempt();
+        attemptedPicsRepo.save(attemptedPics);
+    }
+
+    public void createAttemptPics(User user) {
+        attemptedPicsRepo.save(new AttemptedPics(user));
     }
 }

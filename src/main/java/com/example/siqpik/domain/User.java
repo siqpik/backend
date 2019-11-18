@@ -61,6 +61,9 @@ public class User {
     @OrderBy("date DESC")
     private List<Notification> notifications = new LinkedList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<AttemptedPics> attemptedPics = new LinkedList<>();
+
 
     /******************************************************
      *          Constructors
@@ -137,5 +140,9 @@ public class User {
 
     public List<Notification> getNotifications() {
         return notifications;
+    }
+
+    public List<AttemptedPics> getAttemptedPics() {
+        return attemptedPics;
     }
 }
