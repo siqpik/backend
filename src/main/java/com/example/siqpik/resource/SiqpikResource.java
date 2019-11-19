@@ -29,35 +29,6 @@ public class SiqpikResource {
         this.photoService = photoService;
     }
 
-    /*@PostMapping("/picture")
-    public ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, Authentication auth) {
-        return userService.getUser(auth)
-                .map(user -> {
-                    try {
-                        photoService.savePic(file, user);
-                        return ResponseEntity.status(201).build();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return ResponseEntity.status(415).build();
-                    }
-                })
-                .orElse(ResponseEntity.status(401).build());
-    }*/
-
-    @PostMapping("/admire/{userName}")
-    private ResponseEntity admireUser(@PathVariable String userName, Authentication auth) {
-        return userService.getUser(auth)
-                .map(user -> userService.getUserRepo()
-                        .findByUserName(userName)
-                        .map(otherUser -> {
-                            userService.createAdmirer(user, otherUser);
-                            return ResponseEntity.status(201).build();
-                        })
-                        .orElse(ResponseEntity.status(404).build())
-                )
-                .orElse(ResponseEntity.status(401).build());
-    }
-
     @PostMapping("/picture/{id}")
     private ResponseEntity likePic(@PathVariable Long id, Authentication auth) {
         return userService.getUser(auth)
@@ -146,6 +117,8 @@ public class SiqpikResource {
                                 admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
                                 admireRequest.setStatus("Accepted");
                                 return ResponseEntity.status(201).build();
+                            } else if (!user.getRequestsReceived().contains(admireRequest)) {
+                                return ResponseEntity.status(404).build();
                             } else {
                                 admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
                                 admireRequest.setStatus("Canceled");
