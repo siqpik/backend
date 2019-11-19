@@ -5,7 +5,7 @@ List of Siqpik URI's
 ## ProfileResource
 
 
-#### /api/profile/search/{name}
+### /api/profile/search/{name}
 
 Return a list with all users whom userName and name contains the {name} param. If there is no coincidences the list will be empty. 
 
@@ -32,7 +32,7 @@ Response example:
 ]
 ```
 
-#### /api/profile/{userName}
+### /api/profile/{userName}
 
 Return the profile data of the user with userName *{userName}*
 
@@ -50,7 +50,7 @@ Return the profile data of the user with userName *{userName}*
 
 ## CameraResource
 
-#### /api/attempts
+### /api/attempts
 
 Return the numbers of attempted pics of logged user on the current day
 
@@ -66,7 +66,7 @@ Return the numbers of attempted pics of logged user on the current day
 }
 ``` 
 
-#### /api/attempts
+### /api/attempts
 
 Add a pic attempt to the user who is logged in
 
@@ -76,7 +76,7 @@ Add a pic attempt to the user who is logged in
 	- 401 The user who makes the request is not logged in.
 - Response body: *None*
 
-#### /api/picture
+### /api/picture
 
 Upload a pic 
 
@@ -107,7 +107,7 @@ const sendPic = async () => {
 
 ## BasicAuthenticationResource
 
-#### /register
+### /register
 
 Sing up a user
 
@@ -141,7 +141,7 @@ const register = async () => {
 
 ## SiqpikResource
 
-#### api/admire/{userName}
+### api/admire/{userName}
 
 Create an admire request from the user who is logged in to the user with userName {userName}
 
@@ -154,7 +154,7 @@ Create an admire request from the user who is logged in to the user with userNam
 	- 401 The user who makes the request is not logged in
 - Response body: *None*
 
-#### api/picture/{id]
+### api/picture/{id]
 
 Create a like from the user who is logged in to the pic with id {id}
 
@@ -167,7 +167,7 @@ Create a like from the user who is logged in to the pic with id {id}
 	- 401 The user who makes the request is not logged in
 - Response body: *None*
 
-#### /api/admirers
+### /api/admirers
 
 Return the userName of the admirers for the user who is logged in
 
@@ -192,7 +192,7 @@ Example response:
 ]
 ``` 
 
-#### /api/admiring
+### /api/admiring
 
 Return the userName of the users the logged user is admiring
 
@@ -217,7 +217,7 @@ Example response:
 ]
 ``` 
 
-#### /api/request/{userName}
+### /api/request/{userName}
 
 Create an admire request from the user who is logged in to the user with userName {userName}
 
@@ -230,7 +230,7 @@ Create an admire request from the user who is logged in to the user with userNam
 	- 401 The user who makes the request is not logged in
 - Response body: *None*
 
-#### api/request/{requestId}/{result}
+### api/request/{requestId}/{result}
 
 The user who is logged in accept or discard the admire request with id {requestId}
 
