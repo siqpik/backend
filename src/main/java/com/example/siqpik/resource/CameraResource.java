@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("api)")
@@ -48,6 +48,25 @@ public class CameraResource {
                             return ResponseEntity.status(200).build();
                         })
                 )
+                .orElse(ResponseEntity.status(401).build());
+    }
+
+    @PostMapping("/picture")
+    public ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, Authentication auth) {
+        return userService.getUser(auth)
+                .map(user -> {
+                    if (userService.limitOfAttemptsReached(user)) {
+                        return ResponseEntity.status(409).build();
+                    } else {
+                        try {
+                            photoService.savePic(file, user);
+                            return ResponseEntity.status(201).build();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return ResponseEntity.status(415).build();
+                        }
+                    }
+                })
                 .orElse(ResponseEntity.status(401).build());
     }
 }

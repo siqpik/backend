@@ -21,13 +21,15 @@ import static java.util.stream.Collectors.toList;
 @RequestMapping("/api")
 public class SiqpikResource {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final PhotoService photoService;
 
-    @Autowired
-    private PhotoService photoService;
+    public SiqpikResource(UserService userService, PhotoService photoService) {
+        this.userService = userService;
+        this.photoService = photoService;
+    }
 
-    @PostMapping("/picture")
+    /*@PostMapping("/picture")
     public ResponseEntity uploadPic(@RequestParam("file") MultipartFile file, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> {
@@ -40,17 +42,17 @@ public class SiqpikResource {
                     }
                 })
                 .orElse(ResponseEntity.status(401).build());
-    }
+    }*/
 
     @PostMapping("/admire/{userName}")
     private ResponseEntity admireUser(@PathVariable String userName, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> userService.getUserRepo()
-                            .findByUserName(userName)
-                            .map(otherUser -> {
-                                userService.createAdmirer(user, otherUser);
-                                return ResponseEntity.status(201).build();
-                            })
+                        .findByUserName(userName)
+                        .map(otherUser -> {
+                            userService.createAdmirer(user, otherUser);
+                            return ResponseEntity.status(201).build();
+                        })
                         .orElse(ResponseEntity.status(404).build())
                 )
                 .orElse(ResponseEntity.status(401).build());
