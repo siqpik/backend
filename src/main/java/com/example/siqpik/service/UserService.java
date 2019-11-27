@@ -72,6 +72,7 @@ public class UserService {
                 .stream()
                 .filter(attemptedPic -> attemptedPic
                         .getDate()
+                        .toLocalDate()
                         .isEqual(LocalDate.now(ZoneId.of("GMT"))))
                 .findFirst();
     }
@@ -81,6 +82,7 @@ public class UserService {
                 .stream()
                 .filter(attemptedPics -> attemptedPics
                         .getDate()
+                        .toLocalDate()
                         .isEqual(LocalDate.now(ZoneId.of("GMT"))))
                 .findFirst()
                 .map(attemptedPics -> attemptedPics.getAttempts() > 2)

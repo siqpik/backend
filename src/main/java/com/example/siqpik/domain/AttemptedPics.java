@@ -1,7 +1,7 @@
 package com.example.siqpik.domain;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 @Entity
@@ -21,19 +21,19 @@ public class AttemptedPics {
     private Short attempts;
 
     @Column
-    private LocalDate date;
+    private LocalDateTime date;
 
     public AttemptedPics(User user) {
         this.user = user;
         this.attempts = 1;
-        this.date = LocalDate.now(ZoneId.of("GMT"));
+        this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
     public Short getAttempts() {
         return attempts;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
