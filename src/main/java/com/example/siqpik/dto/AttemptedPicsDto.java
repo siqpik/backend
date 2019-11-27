@@ -4,14 +4,18 @@ import com.example.siqpik.domain.AttemptedPics;
 
 public class AttemptedPicsDto {
 
-    private Short attemps;
+    private Short attempts;
 
     public AttemptedPicsDto(AttemptedPics attemptedPics) {
 
-        this.attemps = attemptedPics.getAttempts();
+        this.attempts = attemptedPics.getAttempts();
     }
 
     public AttemptedPicsDto() {
-        this.attemps = 0;
+        this.attempts = 0;
+    }
+
+    public Short getAttempts() {
+        return attempts;
     }
 }
