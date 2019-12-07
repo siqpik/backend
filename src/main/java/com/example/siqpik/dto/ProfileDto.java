@@ -1,7 +1,8 @@
 package com.example.siqpik.dto;
+import com.example.siqpik.domain.AdmireRequest;
 import com.example.siqpik.domain.Notification;
 import com.example.siqpik.domain.Photo;
-import com.example.siqpik.domain.Request;
+
 import com.example.siqpik.domain.User;
 
 import java.util.Comparator;
@@ -73,18 +74,17 @@ public class ProfileDto {
                 .stream()
                 .filter(request -> request.getReceiver().equals(user))
                 .findFirst()
-                .map(Request::getStatus)
+                .map(AdmireRequest::getStatus)
                 .orElse(null);
     }
 
     public Integer getNotifications() {
-        return 0;
-//        return getIsActualUser()
-//                ? loggedUser.getNotifications()
-//                .stream()
-//                .filter(Notification::getViewed)
-//                .count()
-//                : -1;
+        return getIsActualUser()
+                ? (int)loggedUser.getNotifications()
+                .stream()
+                .filter(notification -> !notification.getViewed())
+                .count()
+                : null;
     }
 
 }

@@ -18,11 +18,11 @@ public class Admirer {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "admirer_id")
-    private User admirer;                       //The admired who admires User1
+    private User admirer;                       //The user who admires User1
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User admired;                          //User1
+    private User admired;                      //User1
 
     /******************************************************
      *          Constructors
@@ -30,9 +30,9 @@ public class Admirer {
 
     public Admirer(){}
 
-    public Admirer(User admirer, User user) {
+    public Admirer(User admirer, User admired) {
         this.admirer = admirer;
-        this.admired = user;
+        this.admired = admired;
         this.date = LocalDateTime.now(ZoneId.of("GMT"));
     }
 
