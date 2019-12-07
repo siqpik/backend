@@ -23,6 +23,8 @@ public class AttemptedPics {
     @Column
     private LocalDateTime date;
 
+    public AttemptedPics(){}
+
     public AttemptedPics(User user) {
         this.user = user;
         this.attempts = 1;
