@@ -65,8 +65,24 @@ public class Notification {
         this.type = "tag";
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public Boolean getViewed() {
         return viewed;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public AdmireRequest getRequest() {
+        return request;
     }
 
     public void setViewed(Boolean viewed) {

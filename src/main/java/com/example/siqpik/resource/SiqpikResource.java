@@ -3,6 +3,7 @@ package com.example.siqpik.resource;
 import com.example.siqpik.domain.Notification;
 import com.example.siqpik.dto.AdmirerDto;
 import com.example.siqpik.dto.AdmiringDto;
+import com.example.siqpik.dto.NotificationDto;
 import com.example.siqpik.service.PhotoService;
 import com.example.siqpik.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -65,11 +66,11 @@ public class SiqpikResource {
     private ResponseEntity getAdmirers(Authentication aut) {
         return userService.getUser(aut)
                 .map(user ->  new ResponseEntity<>(
-                                user.getAdmirers()
+                        user.getAdmirers()
                                 .stream()
                                 .map(AdmirerDto::new)
                                 .collect(toList())
-                                , HttpStatus.OK
+                        , HttpStatus.OK
                         )
                 )
                 .orElse(ResponseEntity.status(401).build());
@@ -126,12 +127,31 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-//    @GetMapping("/notifications")
-//    private ResponseEntity getNotifications(Authentication auth) {
-//        return userService.getUser(auth)
-//                .map(user -> user.getNotifications()
-//                        .stream()
-//                        .map()
-//                )
-//    }
+    @GetMapping("/newNotifications")
+    private ResponseEntity getNumberOfNewNotifications(Authentication auth) {
+        return userService.getUser(auth)
+                .map(user -> new ResponseEntity<>(
+                        user.getNotifications()
+                                .stream()
+                                .filter(notification -> !notification.getViewed())
+                                .count()
+                        ,HttpStatus.OK
+                        )
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
+
+    @GetMapping("/notifications")
+    private ResponseEntity getNotifications(Authentication auth) {
+        return userService.getUser(auth)
+                .map(user -> new ResponseEntity<> (
+                        user.getNotifications()
+                                .stream()
+                                .map(NotificationDto::new)
+                                .collect(toList())
+                        , HttpStatus.OK
+                        )
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
 }

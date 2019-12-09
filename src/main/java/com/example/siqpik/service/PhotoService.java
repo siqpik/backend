@@ -55,8 +55,8 @@ public class PhotoService {
     }
 
     public void addAttempt(AttemptedPics attemptedPics) {
-        attemptedPics.addAttempt();
-        attemptedPicsRepo.save(attemptedPics);
+            attemptedPics.addAttempt();
+            attemptedPicsRepo.save(attemptedPics);
     }
 
     public void createAttemptPics(User user) {
