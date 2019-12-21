@@ -78,13 +78,7 @@ public class UserService {
     }
 
     public Boolean limitOfAttemptsReached(User user) {
-        return user.getAttemptedPics()
-                .stream()
-                .filter(attemptedPics -> attemptedPics
-                        .getDate()
-                        .toLocalDate()
-                        .isEqual(LocalDate.now(ZoneId.of("GMT"))))
-                .findFirst()
+        return getLastAttempt(user)
                 .map(attemptedPics -> attemptedPics.getAttempts() > 2)
                 .orElse(false);
     }
