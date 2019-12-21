@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -25,6 +26,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        /*Optional.ofNullable(request.getHeader("Authorization"))
+                .ifPresent(authorizationHeaderr -> {
+                    if (authorizationHeaderr.startsWith("Bearer ")){
+                        String jwt = authorizationHeaderr.substring(7);
+                        String username = jwtUtil.extractUsername(jwt);
+                    }
+                });*/
 
         final String authorizationHeader = request.getHeader("Authorization");
 
