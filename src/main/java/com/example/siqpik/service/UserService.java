@@ -82,4 +82,12 @@ public class UserService {
                 .map(attemptedPics -> attemptedPics.getAttempts() > 2)
                 .orElse(false);
     }
+
+    public Long getNumberOfNewNotification(User user) {
+       return user.getNotifications()
+                .stream()
+                .filter(notification -> !notification.getViewed())
+                .count();
+
+    }
 }

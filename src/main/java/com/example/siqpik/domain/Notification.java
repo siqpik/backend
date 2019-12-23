@@ -14,7 +14,7 @@ public class Notification {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "user_id")
-    private User user;
+    private User user; //The user who will receive the notification
 
     @ManyToOne
     private Comment comment;
@@ -48,13 +48,13 @@ public class Notification {
     }
 
     public Notification(Like like) {
-        this.user = like.getUser();
+        this.user = like.getPic().getUser();
         this.like = like;
         this.type = "like";
     }
 
     public Notification(AdmireRequest request) {
-        this.user = request.getSender();
+        this.user = request.getReceiver();
         this.request = request;
         this.type = "request";
     }

@@ -7,6 +7,7 @@ public class NotificationDto {
     private Long id;
     private String userName;
     private String userProfilePic;
+    private String senderUserName;
     private Boolean viewed;
     private String type;
     private String status;
@@ -14,11 +15,12 @@ public class NotificationDto {
     public NotificationDto(Notification notification) {
         this.id = notification.getId();
         this.userName = notification.getUser().getUserName();
-        this.userProfilePic = notification.getUser().getProfilePicUrl();
         this.viewed = notification.getViewed();
         this.type = notification.getType();
         if (notification.getType().equals("request")) {
             this.status = notification.getRequest().getStatus();
+            this.senderUserName = notification.getRequest().getSender().getUserName();
+            this.userProfilePic = notification.getRequest().getSender().getProfilePicUrl();
         }
     }
 
@@ -44,5 +46,9 @@ public class NotificationDto {
 
     public String getUserProfilePic() {
         return userProfilePic;
+    }
+
+    public String getSenderUserName() {
+        return senderUserName;
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+
 import static java.util.stream.Collectors.toList;
 
 @RestController
@@ -103,23 +105,24 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-    @PostMapping("/request/{requestId}/{result}")
-    private ResponseEntity resultRequestAdmire(@PathVariable Long requestId, @PathVariable Boolean result, Authentication auth) {
+    @PostMapping("/request/{requestId}/{accepted}")
+    private ResponseEntity resultRequestAdmire(@PathVariable Long requestId, @PathVariable Boolean accepted, Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> userService.getRequestRepo()
                         .findById(requestId)
                         .map(admireRequest -> {
-                            if (result && user.getRequestsReceived().contains(admireRequest)) {
-                                userService.createAdmirer(admireRequest.getSender(), user);
+                            if (user.getRequestsReceived().contains(admireRequest) && admireRequest.getStatus().equals("Pending")) {
                                 admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
-                                admireRequest.setStatus("Accepted");
-                                return ResponseEntity.status(201).build();
-                            } else if (!user.getRequestsReceived().contains(admireRequest)) {
-                                return ResponseEntity.status(404).build();
+                                if (accepted) {
+                                    userService.createAdmirer(admireRequest.getSender(), user);
+                                    admireRequest.setStatus("Accepted");
+                                    return ResponseEntity.status(201).build();
+                                } else {
+                                    admireRequest.setStatus("Canceled");
+                                    return ResponseEntity.status(200).build();
+                                }
                             } else {
-                                admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
-                                admireRequest.setStatus("Canceled");
-                                return ResponseEntity.status(200).build();
+                                return ResponseEntity.status(404).build();
                             }
                         })
                         .orElse(ResponseEntity.status(404).build())
@@ -131,10 +134,7 @@ public class SiqpikResource {
     private ResponseEntity getNumberOfNewNotifications(Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> new ResponseEntity<>(
-                        user.getNotifications()
-                                .stream()
-                                .filter(notification -> !notification.getViewed())
-                                .count()
+                        userService.getNumberOfNewNotification(user)
                         ,HttpStatus.OK
                         )
                 )

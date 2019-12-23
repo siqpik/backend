@@ -24,12 +24,7 @@ public class ProfileDto {
         this.loggedUser = loggedUser;
         this.user = user;
         name = user.getUserName();
-        pics = user.getPhotos()
-                .stream()
-                .sorted(Comparator.comparing(Photo::getDate)
-                        .reversed())
-                .map(PhotoDto::new)
-                .collect(toList());
+        pics = user.getPhotos().stream().map(PhotoDto::new).collect(toList());
         admirers = user.getAdmirers().size();
         admiring = user.getAdmirings().size();
         profilePicUrl = user.getProfilePicUrl();

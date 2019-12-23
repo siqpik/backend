@@ -24,14 +24,16 @@ public class AdmireRequest {
     @Column(updatable = false)
     private LocalDateTime creationDate;
 
+    @Column
     private LocalDateTime responseDate;
 
+    @Column
     private String status;
 
     public AdmireRequest() {}
 
     public AdmireRequest(User sender, User receiver) {
-        this.sender =sender;
+        this.sender = sender;
         this.receiver = receiver;
         this.creationDate = LocalDateTime.now(ZoneId.of("GMT"));
         this.responseDate = null;

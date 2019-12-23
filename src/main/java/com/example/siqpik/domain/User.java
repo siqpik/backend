@@ -15,7 +15,7 @@ public class User {
     @Column(unique = true, updatable = false, nullable = false)
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "user_name", unique = true)
     private String userName;
 
     @Column(unique = true)
@@ -34,6 +34,7 @@ public class User {
     private LocalDateTime date = LocalDateTime.now(ZoneId.of("GMT"));
 
     @OneToMany(mappedBy = "user")
+    @OrderBy("date DESC")
     private List<Photo> photos = new LinkedList<>();
 
     @OneToMany(mappedBy = "admired")
@@ -58,7 +59,6 @@ public class User {
     private List<AdmireRequest> requestsReceived = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
-    @OrderBy("date DESC")
     private List<Notification> notifications = new LinkedList<>();
 
     @OneToMany(mappedBy = "user")
@@ -114,7 +114,7 @@ public class User {
         this.profilePicUrl = profilePicUrl;
     }
 
-    public void setuserName(String name) {
+    public void setUserName(String name) {
         this.userName = name;
     }
 

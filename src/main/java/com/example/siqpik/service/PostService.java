@@ -43,8 +43,6 @@ public class PostService {
 
                     myPosts.addAll(admiredsPosts);
 
-                    Collections.reverse(myPosts);
-
                     return myPosts;
                 }).orElse(Collections.emptyList());
     }
