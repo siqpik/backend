@@ -52,7 +52,7 @@ Return the profile data of the user with userName *{userName}*
 
 ### /api/attempts
 
-Return the numbers of attempted pics of logged user on the current day
+Return the numbers of attempted pics of logged user on the current day.
 
 - HTTP Method: **GET**
 - HTTP Status:
