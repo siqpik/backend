@@ -4,6 +4,7 @@ import com.example.siqpik.domain.Notification;
 import com.example.siqpik.dto.AdmirerDto;
 import com.example.siqpik.dto.AdmiringDto;
 import com.example.siqpik.dto.NotificationDto;
+import com.example.siqpik.service.NotificationService;
 import com.example.siqpik.service.PhotoService;
 import com.example.siqpik.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -22,10 +23,12 @@ public class SiqpikResource {
 
     private final UserService userService;
     private final PhotoService photoService;
+    private final NotificationService notificationService;
 
-    public SiqpikResource(UserService userService, PhotoService photoService) {
+    public SiqpikResource(UserService userService, PhotoService photoService, NotificationService notificationService) {
         this.userService = userService;
         this.photoService = photoService;
+        this.notificationService = notificationService;
     }
 
     @PostMapping("/picture/{id}")
@@ -134,7 +137,7 @@ public class SiqpikResource {
     private ResponseEntity getNumberOfNewNotifications(Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> new ResponseEntity<>(
-                        userService.getNumberOfNewNotification(user)
+                        notificationService.getNumberOfNewNotification(user)
                         ,HttpStatus.OK
                         )
                 )
