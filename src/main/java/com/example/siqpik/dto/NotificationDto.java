@@ -14,7 +14,7 @@ public class NotificationDto {
 
     public NotificationDto(Notification notification) {
         this.id = notification.getId();
-        this.userName = notification.getUser().getUserName();
+        this.userName = notification.getRequest().getSender().getUserName();
         this.viewed = notification.getViewed();
         this.type = notification.getType();
         if (notification.getType().equals("request")) {
