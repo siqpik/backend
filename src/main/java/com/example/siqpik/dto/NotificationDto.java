@@ -14,13 +14,15 @@ public class NotificationDto {
 
     public NotificationDto(Notification notification) {
         this.id = notification.getId();
-        this.userName = notification.getRequest().getSender().getUserName();
         this.viewed = notification.getViewed();
         this.type = notification.getType();
-        this.userProfilePic = notification.getRequest().getSender().getProfilePicUrl();
-        this.senderUserName = notification.getRequest().getSender().getUserName();
         if (notification.getType().equals("request")) {
             this.status = notification.getRequest().getStatus();
+            this.userProfilePic = notification.getRequest().getSender().getProfilePicUrl();
+            this.senderUserName = notification.getRequest().getSender().getUserName();
+        } else if (notification.getType().equals("like")) {
+            this.userProfilePic = notification.getLike().getSender().getProfilePicUrl();
+            this.senderUserName = notification.getLike().getSender().getUserName();
         }
     }
 

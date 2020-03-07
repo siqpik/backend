@@ -85,6 +85,10 @@ public class Notification {
         return request;
     }
 
+    public Like getLike() {
+        return like;
+    }
+
     public void setViewed(Boolean viewed) {
         this.viewed = viewed;
     }
