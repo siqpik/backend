@@ -1,7 +1,6 @@
 package com.example.siqpik.resource;
 
 import com.example.siqpik.domain.AdmireRequest;
-import com.example.siqpik.domain.Notification;
 import com.example.siqpik.dto.AdmirerDto;
 import com.example.siqpik.dto.AdmiringDto;
 import com.example.siqpik.dto.NotificationDto;
@@ -12,10 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.List;
-
 import static java.util.stream.Collectors.toList;
 
 @RestController
