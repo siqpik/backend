@@ -21,8 +21,8 @@ public class NotificationDto {
             this.userProfilePic = notification.getRequest().getSender().getProfilePicUrl();
             this.senderUserName = notification.getRequest().getSender().getUserName();
         } else if (notification.getType().equals("like")) {
-            this.userProfilePic = notification.getLike().getSender().getProfilePicUrl();
-            this.senderUserName = notification.getLike().getSender().getUserName();
+            this.userProfilePic = notification.getLike().getUser().getProfilePicUrl();
+            this.senderUserName = notification.getLike().getUser().getUserName();
         }
     }
 
