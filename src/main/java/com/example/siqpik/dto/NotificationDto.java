@@ -17,10 +17,10 @@ public class NotificationDto {
         this.userName = notification.getRequest().getSender().getUserName();
         this.viewed = notification.getViewed();
         this.type = notification.getType();
+        this.userProfilePic = notification.getRequest().getSender().getProfilePicUrl();
+        this.senderUserName = notification.getRequest().getSender().getUserName();
         if (notification.getType().equals("request")) {
             this.status = notification.getRequest().getStatus();
-            this.senderUserName = notification.getRequest().getSender().getUserName();
-            this.userProfilePic = notification.getRequest().getSender().getProfilePicUrl();
         }
     }
 

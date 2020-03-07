@@ -8,6 +8,10 @@ import java.time.ZoneId;
 @Table(name = "requests")
 public class AdmireRequest {
 
+    public static final String PENDING = "Pending";
+    public static final String ACCEPTED = "Accepted";
+    public static final String CANCELED = "Canceled";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, updatable = false, nullable = false)

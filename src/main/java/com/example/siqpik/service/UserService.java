@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
@@ -67,6 +68,17 @@ public class UserService {
         notificationRepo.save(notification);
     }
 
+    public Boolean updateRequestAndCreateAdmire(AdmireRequest admireRequest, Boolean result) {
+        admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
+        admireRequest.setStatus(result
+                ? AdmireRequest.ACCEPTED
+                : AdmireRequest.CANCELED
+        );
+        if(result) createAdmirer(admireRequest.getSender(), admireRequest.getReceiver());
+        requestRepo.save(admireRequest);
+        return result;
+    }
+
     public Optional<AttemptedPics> getLastAttempt(User user) {
         return user.getAttemptedPics()
                 .stream()
@@ -90,4 +102,6 @@ public class UserService {
                 .count();
 
     }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.siqpik.resource;
 
+import com.example.siqpik.domain.AdmireRequest;
 import com.example.siqpik.domain.Notification;
 import com.example.siqpik.dto.AdmirerDto;
 import com.example.siqpik.dto.AdmiringDto;
@@ -113,22 +114,12 @@ public class SiqpikResource {
         return userService.getUser(auth)
                 .map(user -> userService.getRequestRepo()
                         .findById(requestId)
-                        .map(admireRequest -> {
-                            if (user.getRequestsReceived().contains(admireRequest) && admireRequest.getStatus().equals("Pending")) {
-                                admireRequest.setResponseDate(LocalDateTime.now(ZoneId.of("GMT")));
-                                if (accepted) {
-                                    userService.createAdmirer(admireRequest.getSender(), user);
-                                    admireRequest.setStatus("Accepted");
-                                    return ResponseEntity.status(201).build();
-                                } else {
-                                    admireRequest.setStatus("Canceled");
-                                    return ResponseEntity.status(200).build();
-                                }
-                            } else {
-                                return ResponseEntity.status(404).build();
-                            }
-                        })
-                        .orElse(ResponseEntity.status(404).build())
+                        .filter(admireRequest -> user.getRequestsReceived().contains(admireRequest) && admireRequest.getStatus().equals(AdmireRequest.PENDING))
+                        .map(admireRequest -> userService.updateRequestAndCreateAdmire(admireRequest, accepted)
+                                ? ResponseEntity.status(201).build()
+                                : ResponseEntity.status(200).build()
+                        )
+                        .orElse(ResponseEntity.status(403).build())
                 )
                 .orElse(ResponseEntity.status(401).build());
     }
