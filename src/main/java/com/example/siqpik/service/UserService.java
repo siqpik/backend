@@ -74,7 +74,7 @@ public class UserService {
                 ? AdmireRequest.ACCEPTED
                 : AdmireRequest.CANCELED
         );
-        if(result) createAdmirer(admireRequest.getSender(), admireRequest.getReceiver());
+        if (result) createAdmirer(admireRequest.getSender(), admireRequest.getReceiver());
         requestRepo.save(admireRequest);
         return result;
     }
@@ -94,14 +94,5 @@ public class UserService {
                 .map(attemptedPics -> attemptedPics.getAttempts() > 2)
                 .orElse(false);
     }
-
-    public Long getNumberOfNewNotification(User user) {
-       return user.getNotifications()
-                .stream()
-                .filter(notification -> !notification.getViewed())
-                .count();
-
-    }
-
 
 }

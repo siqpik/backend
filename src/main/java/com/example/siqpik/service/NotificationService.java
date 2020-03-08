@@ -19,6 +19,5 @@ public class NotificationService {
 
     public Integer getNumberOfNewNotification(User user) {
         return notificationRepo.countByViewedEqualsAndUserIs(false, user);
-
     }
 }
