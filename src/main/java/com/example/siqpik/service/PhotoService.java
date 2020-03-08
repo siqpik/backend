@@ -62,4 +62,5 @@ public class PhotoService {
     public void createAttemptPics(User user) {
         attemptedPicsRepo.save(new AttemptedPics(user));
     }
+
 }

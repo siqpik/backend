@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     Optional<List<Photo>> findAllByUserIsOrderByDate(User user);
+
+    Optional<Photo> findById(Long id);
 }
