@@ -1,5 +1,7 @@
 package com.example.siqpik.service;
 
+import com.example.siqpik.domain.Photo;
+import com.example.siqpik.domain.User;
 import com.example.siqpik.dto.PhotoDto;
 import com.example.siqpik.resource.model.PostResult;
 import org.springframework.security.core.Authentication;
@@ -26,10 +28,13 @@ public class PostService {
                     List<PostResult> admiredsPosts = user.getAdmirings()
                             .stream()
                             .flatMap(admiring -> admiring.getAdmired().getPhotos().stream()
-                                    .map(pic -> new PostResult(
+                                    .map(pic ->
+                                            new PostResult(
                                                     admiring.getAdmired().getProfilePicUrl(),
                                                     admiring.getAdmired().getUserName(),
-                                                    new PhotoDto(pic)
+                                                    new PhotoDto(pic),
+                                                    logUserLikePic(pic, user)
+
                                             )
                                     )
                             ).collect(toList());
@@ -38,12 +43,20 @@ public class PostService {
                             .map(pic -> new PostResult(
                                     user.getProfilePicUrl(),
                                     user.getUserName(),
-                                    new PhotoDto(pic)
+                                    new PhotoDto(pic),
+                                    logUserLikePic(pic, user)
                             )).collect(toList());
 
                     myPosts.addAll(admiredsPosts);
 
                     return myPosts;
                 }).orElse(Collections.emptyList());
+    }
+
+    public Boolean logUserLikePic(Photo photo, User user) {
+        return photo.getLikes()
+                .stream()
+                .anyMatch(like -> like.getUser().getId().equals(user.getId()));
+
     }
 }
