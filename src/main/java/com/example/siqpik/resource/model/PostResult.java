@@ -27,4 +27,8 @@ public class PostResult {
     public PhotoDto getPhoto() {
         return photo;
     }
+
+    public Boolean getILikeThisPic() {
+        return iLikeThisPic;
+    }
 }

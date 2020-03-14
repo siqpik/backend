@@ -15,7 +15,6 @@ public class PhotoDto {
     private List<String> tags;
     private LocalDate date;
     private List<CommentDto> comments;
-    private Boolean userLikesThisPic;
 
     public PhotoDto(Photo photo) {
         id = photo.getId();
