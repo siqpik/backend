@@ -9,6 +9,7 @@ import com.example.siqpik.repositories.LikeRepository;
 import com.example.siqpik.repositories.PhotoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import static org.springframework.data.util.Optionals.ifPresentOrElse;
 
 import java.io.IOException;
 import java.util.Map;
@@ -46,8 +47,12 @@ public class PhotoService {
         photoRepo.save(new Photo(user, photoInfo));
     }
 
-    public void createLike(User user, Photo pic) {
-        likeRepo.save(new Like(user, pic));
+    public void createOrDeleteLike(User user, Photo pic) {
+        ifPresentOrElse(
+                likeRepo.findByPicAndUserIs(pic, user),
+                like -> likeRepo.deleteById(like.getId()),
+                () -> likeRepo.save(new Like(user, pic))
+        );
     }
 
     public void createComment(User user, Photo pic, String commentary) {

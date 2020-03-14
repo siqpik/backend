@@ -33,7 +33,7 @@ public class SiqpikResource {
                 .map(user -> photoService.getPhotoRepo()
                         .findById(id)
                         .map(pic -> {
-                            photoService.createLike(user, pic);
+                            photoService.createOrDeleteLike(user, pic);
                             return ResponseEntity.status(201).build();
                         })
                         .orElse(ResponseEntity.status(404).build())

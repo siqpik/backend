@@ -31,6 +31,10 @@ public class Like {
         this.pic = pic;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public User getUser() {
         return user;
     }
@@ -38,4 +42,5 @@ public class Like {
     public Photo getPic() {
         return pic;
     }
+
 }
