@@ -6,6 +6,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,8 +46,18 @@ public class JwtUtil {
 
     private String createToken(Map<String, Object> claims, String userName){
         return Jwts.builder().setClaims(claims).setSubject(userName).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 5000 * 60 * 60 * 10))
+                .setExpiration(getNewExpirationDate())
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+    }
+
+    private Date getNewExpirationDate(){
+      return Date.from(
+          LocalDate.now()
+              .plusWeeks(6)
+              .atStartOfDay()
+              .atZone(ZoneId.systemDefault())
+              .toInstant()
+      );
     }
 
     public Boolean validateToken(String token, UserDetails userDetails){
