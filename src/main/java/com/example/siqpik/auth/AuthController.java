@@ -1,6 +1,5 @@
 package com.example.siqpik.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,16 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private MyUserDetailsService userDetailsService;
+    private final MyUserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtUtil jwtTokenUtil;
+    private final JwtUtil jwtTokenUtil;
 
-    @PostMapping("/authenticate")
+  public AuthController(AuthenticationManager authenticationManager, MyUserDetailsService userDetailsService, JwtUtil jwtTokenUtil) {
+    this.authenticationManager = authenticationManager;
+    this.userDetailsService = userDetailsService;
+    this.jwtTokenUtil = jwtTokenUtil;
+  }
+
+  @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
