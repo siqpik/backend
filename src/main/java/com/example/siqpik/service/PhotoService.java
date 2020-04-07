@@ -9,10 +9,11 @@ import com.example.siqpik.repositories.LikeRepository;
 import com.example.siqpik.repositories.PhotoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import static org.springframework.data.util.Optionals.ifPresentOrElse;
 
 import java.io.IOException;
 import java.util.Map;
+
+import static org.springframework.data.util.Optionals.ifPresentOrElse;
 
 @Service
 public class PhotoService {

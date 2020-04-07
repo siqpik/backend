@@ -13,10 +13,6 @@ public class NotificationService {
         this.notificationRepo = notificationRepo;
     }
 
-    public NotificationRepository getNotificationRepo() {
-        return notificationRepo;
-    }
-
     public Integer getNumberOfNewNotification(User user) {
         return notificationRepo.countByViewedEqualsAndUserIs(false, user);
     }
