@@ -1,9 +1,7 @@
 package com.example.siqpik.resource;
 
-import com.example.siqpik.domain.Photo;
-import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.dto.ProfileDto;
-import com.example.siqpik.dto.ProfileLoggedDto;
+import com.example.siqpik.resource.model.ProfileResult;
 import com.example.siqpik.service.PhotoService;
 import com.example.siqpik.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -36,8 +34,7 @@ public class ProfileResource {
     @GetMapping("/{userName}")
     private ResponseEntity getProfile(@PathVariable String userName, Authentication auth) {
         return userService.getUser(auth)
-                .map(loggedUser -> userService.getUserRepo()
-                        .findByUserName(userName)
+                .map(loggedUser -> userService.findByUserName(userName)
                         .map(user -> new ResponseEntity<>(new ProfileDto(loggedUser, user), HttpStatus.OK))
                         .orElse(ResponseEntity.status(404).build())
                 )

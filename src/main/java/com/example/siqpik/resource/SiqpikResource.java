@@ -93,8 +93,7 @@ public class SiqpikResource {
     @PostMapping("/request/{userName}")
     private ResponseEntity requestAdmire(@PathVariable String userName, Authentication auth) {
         return userService.getUser(auth)
-                .map(sender -> userService.getUserRepo()
-                        .findByUserName(userName)
+                .map(sender -> userService.findByUserName(userName)
                         .map(receiver -> {
                             userService.createRequestToAdmire(sender, receiver);
                             return ResponseEntity.status(201).build();
