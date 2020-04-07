@@ -32,16 +32,10 @@ public class UserService {
         this.notificationRepo = notificationRepo;
     }
 
-    public UserRepository getUserRepo() {
-        return userRepo;
-    }
+
 
     public AdmireRequestRepository getRequestRepo() {
         return requestRepo;
-    }
-
-    public NotificationRepository getNotificationRepo() {
-        return notificationRepo;
     }
 
     public Optional<User> getUser(Authentication authentication) {
@@ -95,4 +89,19 @@ public class UserService {
                 .orElse(false);
     }
 
+  public void save(User user) {
+    userRepo.save(user);
+  }
+
+  public Optional<User> findByUserName(String userName) {
+    return userRepo.findByUserName(userName);
+  }
+
+  public Boolean existsByUserName(String userName) {
+      return userRepo.existsByUserName(userName);
+  }
+
+  public Boolean existsByEmail(String email) {
+      return userRepo.existsByEmail(email);
+  }
 }
