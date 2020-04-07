@@ -1,6 +1,5 @@
 package com.example.siqpik.domain;
 
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -145,4 +144,12 @@ public class User {
     public List<AttemptedPics> getAttemptedPics() {
         return attemptedPics;
     }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 }
