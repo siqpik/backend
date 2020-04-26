@@ -41,20 +41,18 @@ public class SiqpikResource {
                 .orElse(ResponseEntity.status(401).build());
     }
 
-//    @PostMapping("/comment/{id]")
-//    private ResponseEntity putComment(@PathVariable Long id, @RequestBody String commentary, Authentication auth) {
-//        return userService.getAdmired(auth)
-//                .map(user -> photoService.getPhotoRepo()
-//                        .findById(id)
-//                        .filter(pic -> userService.isAdmiring(user, pic.getAdmired()))
-//                        .map(pic -> {
-//                            photoService.createComment(user, pic, commentary);
-//                            return ResponseEntity.status(201).build();
-//                        })
-//                        .orElse(ResponseEntity.status(404).build())
-//
-//                ).orElse(ResponseEntity.status(401).build());
-//    }
+    @PostMapping("/comment/{id}")
+    private ResponseEntity putComment(@PathVariable Long id, @RequestBody String commentary, Authentication auth) {
+        return userService.getUser(auth)
+                .map(user -> photoService.getPhotoRepo()
+                        .findById(id)
+                        .map(pic -> {
+                            photoService.createComment(user, pic, commentary);
+                            return ResponseEntity.status(201).build();
+                        })
+                        .orElse(ResponseEntity.status(404).build())
+                ).orElse(ResponseEntity.status(401).build());
+    }
 
     @GetMapping("/userLogin")
     private ResponseEntity isUserLogin(Authentication auth) {
