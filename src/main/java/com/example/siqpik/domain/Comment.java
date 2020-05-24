@@ -24,8 +24,6 @@ public class Comment {
     @JoinColumn(name = "photo_id")
     private Photo pic;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "photo_id")
     private String commentary;
 
     public Comment() {}
