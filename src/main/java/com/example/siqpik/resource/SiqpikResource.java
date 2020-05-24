@@ -131,11 +131,11 @@ public class SiqpikResource {
     private ResponseEntity getNotifications(Authentication auth) {
         return userService.getUser(auth)
                 .map(user -> new ResponseEntity<> (
-                        user.getNotifications()
-                                .stream()
-                                .map(NotificationDto::new)
-                                .collect(toList())
-                        , HttpStatus.OK
+                                user.getNotifications()
+                                        .stream()
+                                        .map(NotificationDto::new)
+                                        .collect(toList())
+                                , HttpStatus.OK
                         )
                 )
                 .orElse(ResponseEntity.status(401).build());
