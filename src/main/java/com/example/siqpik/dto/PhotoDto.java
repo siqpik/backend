@@ -54,9 +54,8 @@ public class PhotoDto {
         return date;
     }
 
-    public List<CommentDto>  getComments() {
+    public List<CommentDto> getComments() {
         return comments;
     }
-
 
 }

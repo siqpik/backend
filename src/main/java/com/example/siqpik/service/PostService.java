@@ -34,7 +34,6 @@ public class PostService {
                                                     admiring.getAdmired().getUserName(),
                                                     new PhotoDto(pic),
                                                     logUserLikePic(pic, user)
-
                                             )
                                     )
                             ).collect(toList());
