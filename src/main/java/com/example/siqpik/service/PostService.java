@@ -54,7 +54,7 @@ public class PostService {
 
                     myPosts.addAll(admiredsPosts);
 
-                    myPosts.sort(Comparator.comparing(post -> post.getPhoto().getDate()));
+                    myPosts.sort(Comparator.comparing(post -> post.getPhoto().getDate(), Comparator.reverseOrder()));
 
                     return myPosts;
 
