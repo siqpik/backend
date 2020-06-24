@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -20,6 +21,11 @@ public class PostService {
 
     public PostService(UserService userService) {
         this.userService = userService;
+    }
+
+    private static int compare(PostResult post1, PostResult post2) {
+        return post1.getPhoto().getDate()
+                .compareTo(post2.getPhoto().getDate());
     }
 
     public List<PostResult> getPosts(Authentication auth){
@@ -49,7 +55,10 @@ public class PostService {
 
                     myPosts.addAll(admiredsPosts);
 
+                    myPosts.sort(Comparator.comparing(post -> post.getPhoto().getDate()));
+
                     return myPosts;
+
                 }).orElse(Collections.emptyList());
     }
 
