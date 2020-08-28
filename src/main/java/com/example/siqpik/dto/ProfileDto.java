@@ -1,11 +1,6 @@
 package com.example.siqpik.dto;
 import com.example.siqpik.domain.AdmireRequest;
-import com.example.siqpik.domain.Notification;
-import com.example.siqpik.domain.Photo;
-
 import com.example.siqpik.domain.User;
-
-import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,12 +12,14 @@ public class ProfileDto {
     private Integer admirers;
     private Integer admiring;
     private String profilePicUrl;
+    private Boolean isAdmiring;
     private User loggedUser;    //User that is log in
     private User user;      //The user of whom we want to see the profile
 
     public ProfileDto(User loggedUser, User user) {
         this.loggedUser = loggedUser;
         this.user = user;
+        isAdmiring = getIsAdmiring();
         name = user.getUserName();
         pics = user.getPhotos().stream().map(PhotoDto::new).collect(toList());
         admirers = user.getAdmirers().size();
@@ -50,20 +47,19 @@ public class ProfileDto {
         return profilePicUrl;
     }
 
-    public Boolean getIsActualUser() {
+    public Boolean isActualUser() {
         return loggedUser.getId().equals(user.getId());
     }
 
     public Boolean getIsAdmiring() {
-        return getIsActualUser()
-                ? null
-                : loggedUser.getAdmirings()
+        return isActualUser()
+                || loggedUser.getAdmirings()
                 .stream()
                 .anyMatch(admirer -> admirer.getAdmired().equals(user));
     }
 
     public String getRequestStatus() {
-        return getIsActualUser()
+        return isActualUser()
                 ? null
                 : loggedUser.getRequestsSend()
                 .stream()
@@ -74,7 +70,7 @@ public class ProfileDto {
     }
 
     public Integer getNotifications() {
-        return getIsActualUser()
+        return isActualUser()
                 ? (int)loggedUser.getNotifications()
                 .stream()
                 .filter(notification -> !notification.getViewed())
