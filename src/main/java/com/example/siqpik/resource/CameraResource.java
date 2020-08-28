@@ -67,5 +67,22 @@ public class CameraResource {
                 })
                 .orElse(ResponseEntity.status(401).build());
     }
+
+    @DeleteMapping("/picture/{id}")
+    public ResponseEntity deletePic(@PathVariable Long id, Authentication auth){
+        return userService.getUser(auth)
+                .map(user ->
+                        user.getPhotos()
+                        .stream()
+                        .filter(photo -> photo.getId().equals(id))
+                        .findFirst()
+                        .map(photo -> {
+                            photoService.deletePic(photo);
+                            return ResponseEntity.status(204).build();
+                        })
+                        .orElse(ResponseEntity.status(404).build())
+                )
+                .orElse(ResponseEntity.status(401).build());
+    }
 }
 

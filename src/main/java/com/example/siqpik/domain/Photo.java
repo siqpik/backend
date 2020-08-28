@@ -82,4 +82,8 @@ public class Photo {
         return date;
     }
 
+    public void setUrl(String url){
+        this.url = url;
+    }
+
 }

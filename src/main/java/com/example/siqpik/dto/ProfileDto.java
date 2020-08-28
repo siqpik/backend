@@ -22,11 +22,11 @@ public class ProfileDto {
         this.user = user;
         name = user.getUserName();
         pics = getIsAdmiring()
-                ? new ArrayList<>()
-                : user.getPhotos()
+                ? user.getPhotos()
                 .stream()
                 .map(PhotoDto::new)
-                .collect(toList());
+                .collect(toList())
+                : new ArrayList<>();
         admirers = user.getAdmirers().size();
         admiring = user.getAdmirings().size();
         profilePicUrl = user.getProfilePicUrl();
