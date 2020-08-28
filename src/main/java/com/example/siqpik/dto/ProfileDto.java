@@ -1,6 +1,8 @@
 package com.example.siqpik.dto;
 import com.example.siqpik.domain.AdmireRequest;
 import com.example.siqpik.domain.User;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -19,7 +21,12 @@ public class ProfileDto {
         this.loggedUser = loggedUser;
         this.user = user;
         name = user.getUserName();
-        pics = user.getPhotos().stream().map(PhotoDto::new).collect(toList());
+        pics = getIsAdmiring()
+                ? new ArrayList<>()
+                : user.getPhotos()
+                .stream()
+                .map(PhotoDto::new)
+                .collect(toList());
         admirers = user.getAdmirers().size();
         admiring = user.getAdmirings().size();
         profilePicUrl = user.getProfilePicUrl();
