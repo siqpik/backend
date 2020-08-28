@@ -12,14 +12,12 @@ public class ProfileDto {
     private Integer admirers;
     private Integer admiring;
     private String profilePicUrl;
-    private Boolean isAdmiring;
     private User loggedUser;    //User that is log in
     private User user;      //The user of whom we want to see the profile
 
     public ProfileDto(User loggedUser, User user) {
         this.loggedUser = loggedUser;
         this.user = user;
-        isAdmiring = getIsAdmiring();
         name = user.getUserName();
         pics = user.getPhotos().stream().map(PhotoDto::new).collect(toList());
         admirers = user.getAdmirers().size();
