@@ -47,19 +47,19 @@ public class ProfileDto {
         return profilePicUrl;
     }
 
-    public Boolean isActualUser() {
+    public Boolean getIsActualUser() {
         return loggedUser.getId().equals(user.getId());
     }
 
     public Boolean getIsAdmiring() {
-        return isActualUser()
+        return getIsActualUser()
                 || loggedUser.getAdmirings()
                 .stream()
                 .anyMatch(admirer -> admirer.getAdmired().equals(user));
     }
 
     public String getRequestStatus() {
-        return isActualUser()
+        return getIsActualUser()
                 ? null
                 : loggedUser.getRequestsSend()
                 .stream()
@@ -70,7 +70,7 @@ public class ProfileDto {
     }
 
     public Integer getNotifications() {
-        return isActualUser()
+        return getIsActualUser()
                 ? (int)loggedUser.getNotifications()
                 .stream()
                 .filter(notification -> !notification.getViewed())
