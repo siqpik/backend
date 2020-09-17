@@ -27,7 +27,7 @@ public class User {
     private String name;
 
     @Column
-    private String profilePicUrl = "https://static.hiphopdx.com/2017/11/B-Real-827x620.jpg";
+    private String profilePicUrl;
 
     @Column
     private LocalDateTime date = LocalDateTime.now(ZoneId.of("GMT"));
