@@ -21,7 +21,7 @@ public class PhotoService {
     private final String CLOUD_NAME = "siqpik";
     private final String API_KEY = "437532797296387";
     private final String API_SECRET = "WLHW9vutYNCgmK4hFvPAzja2Sb0";
-    private final String DELETE_PIC_URL = "https://res.cloudinary.com/siqpik/image/upload/v1598618292/deletePic.jpg`";
+    private final String DELETE_PIC_URL = "https://res.cloudinary.com/siqpik/image/upload/v1598618292/deletePic.jpg";
 
     private final PhotoRepository photoRepo;
     private final LikeRepository likeRepo;
