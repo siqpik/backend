@@ -89,6 +89,11 @@ public class UserService {
                 .orElse(false);
     }
 
+    public void changeProfilePic(User user, Photo pic) {
+        user.setProfilePicUrl(pic.getUrl());
+        userRepo.save(user);
+    }
+
   public void save(User user) {
     userRepo.save(user);
   }

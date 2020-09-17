@@ -72,6 +72,7 @@ public class PhotoService {
 
     public void deletePic(Photo pic){
         pic.setUrl(DELETE_PIC_URL);
+        photoRepo.save(pic);
     }
 
 }

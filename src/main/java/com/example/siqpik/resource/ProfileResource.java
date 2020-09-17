@@ -46,7 +46,7 @@ public class ProfileResource {
         return userService.getUser(auth)
                 .map(user -> photoService.getPhotoRepo().findById(picId)
                         .map(pic -> {
-                            user.setProfilePicUrl(pic.getUrl());
+                            userService.changeProfilePic(user, pic);
                             return ResponseEntity.status(200).build();
                         })
                         .orElse(ResponseEntity.status(404).build())
