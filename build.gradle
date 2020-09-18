@@ -21,7 +21,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'org.postgresql:postgresql'
+	// runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile group: 'com.cloudinary', name: 'cloudinary-http44', version: '1.22.1'
 	compile("org.springframework.boot:spring-boot-starter-security")
@@ -33,4 +34,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.13'
+
+	// https://mvnrepository.com/artifact/org.postgresql/postgresql
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
+
 }
