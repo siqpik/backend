@@ -16,7 +16,7 @@ public class CommentDto {
         return userName;
     }
 
-    public String getComments() {
+    public String getComment() {
         return comment;
     }
 }

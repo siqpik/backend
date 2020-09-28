@@ -57,8 +57,8 @@ public class PhotoService {
         );
     }
 
-    public void createComment(User user, Photo pic, String commentary) {
-        commentRepo.save(new Comment(user, pic, commentary));
+    public Comment createComment(User user, Photo pic, String commentary) {
+        return commentRepo.save(new Comment(user, pic, commentary));
     }
 
     public void addAttempt(AttemptedPics attemptedPics) {

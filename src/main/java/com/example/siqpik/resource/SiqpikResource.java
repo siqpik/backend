@@ -1,6 +1,7 @@
 package com.example.siqpik.resource;
 
 import com.example.siqpik.domain.AdmireRequest;
+import com.example.siqpik.domain.Comment;
 import com.example.siqpik.dto.AdmirerDto;
 import com.example.siqpik.dto.AdmiringDto;
 import com.example.siqpik.dto.NotificationDto;
@@ -47,8 +48,8 @@ public class SiqpikResource {
                 .map(user -> photoService.getPhotoRepo()
                         .findById(id)
                         .map(pic -> {
-                            photoService.createComment(user, pic, commentary);
-                            return ResponseEntity.status(201).build();
+                          Comment comment = photoService.createComment(user, pic, commentary);
+                          return new ResponseEntity<>(comment, HttpStatus.CREATED)
                         })
                         .orElse(ResponseEntity.status(404).build())
                 ).orElse(ResponseEntity.status(401).build());
